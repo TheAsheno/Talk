@@ -6,7 +6,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Talk;component/Styles/Controls.Button.xaml"/>
+                <ResourceDictionary Source="/Talk;component/Styles/Button.xaml"/>
+                <ResourceDictionary Source="/Talk;component/Styles/Text.xaml" />
+                <ResourceDictionary Source="/Talk;component/Styles/Border.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

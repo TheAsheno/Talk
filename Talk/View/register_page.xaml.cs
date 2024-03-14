@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Talk.ViewModel;
 
-namespace Talk
+namespace Talk.View
 {
     /// <summary>
-    /// register.xaml 的交互逻辑
+    /// register_page.xaml 的交互逻辑
     /// </summary>
-    public partial class register : Window
+    public partial class register_page : Page
     {
-        public register()
+        public register_page()
         {
             InitializeComponent();
             DataContext = new RegisterViewModel();
         }
-        
+
         private void txtUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(txtUserName.Text) && txtUserName.Text.Length > 0)
@@ -72,13 +72,7 @@ namespace Talk
             {
                 calendar.IsOpen = false;
                 rightborder.Focus();
-                this.DragMove();
             }
-        }
-
-        private void close_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
         }
 
         private void txtPassword2_TextChanged(object sender, RoutedEventArgs e)

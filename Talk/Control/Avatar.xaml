@@ -11,7 +11,7 @@
             <Canvas.Clip>
                 <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
             </Canvas.Clip>
-            <Image Name="img" Source="pack://application:,,,/Asset/images/The_Interloper.png"
+            <Image Name="img" Source="pack://application:,,,/Asset/images/default.png"
                                MouseDown="img_MouseDown" MouseWheel="img_MouseWheel"
                                MouseMove="img_MouseMove"
                                MouseUp="img_MouseUp"
