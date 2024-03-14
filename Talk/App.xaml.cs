@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Data.SqlClient;
+
+namespace Talk
+{
+    /// <summary>
+    /// App.xaml 的交互逻辑
+    /// </summary>
+    public partial class App : Application
+    {
+        public static SqlConnection conn;
+        public App()
+        {
+            string SqlConnectionStatement = "server=localhost;database=Talk;uid=sa;pwd=252011";
+            conn = new SqlConnection(SqlConnectionStatement);
+            try
+            {
+                conn.Open();
+                if (conn.State == ConnectionState.Open)
+                    Console.WriteLine("数据库连接成功");
+                else
+                    Console.WriteLine("数据库连接失败");
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("数据库连接失败: " + ex.Message);
+            }
+        }
+        public static List<NotificationWindow> _dialogs = new List<NotificationWindow>();
+        public static double GetTopFrom()
+        {
+            //屏幕的高度-底部TaskBar的高度。
+            double topFrom = SystemParameters.WorkArea.Bottom - 10;
+            bool isContinueFind = App._dialogs.Any(o => o.TopFrom == topFrom);
+
+            while (isContinueFind)
+            {
+                topFrom = topFrom - 110;//此处100是NotifyWindow的高
+                isContinueFind = App._dialogs.Any(o => o.TopFrom == topFrom);
+            }
+
+            if (topFrom <= 0)
+                topFrom = SystemParameters.WorkArea.Bottom - 10;
+
+            return topFrom;
+        }
+    }
+}
