@@ -8,10 +8,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="400"
       Title="register_page">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ThicknessAnimation Duration="0:0:.45" Storyboard.TargetProperty="Margin" From="-50,0,50,0" To="0" DecelerationRatio=".9" />
+                        <DoubleAnimation Duration="0:0:.35" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Page.Triggers>
     <Grid>
         <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Focusable="True" x:Name="rightborder">
-            <StackPanel Margin="0 30 0 0">
-                <control:Avatar Margin="0 0 0 10"/>
+            <StackPanel >
+                <TextBlock Margin="20 10 0 0" MouseDown="frame_goback" Grid.Column="1" Text="&#xe618;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" Foreground="Black" Panel.ZIndex="1" HorizontalAlignment="Left" Width="25" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <control:Avatar x:Name="Avatar" Margin="0 0 0 10"/>
                 <Grid Height="52" Width="260">
                     <Border >
                         <Border.Style>
@@ -21,9 +48,12 @@
                                         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}"/>
                                         <Setter Property="Effect">
                                             <Setter.Value>
-                                                <DropShadowEffect ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
+                                                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
                                             </Setter.Value>
                                         </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsUserNameError}" Value="true">
+                                        <Setter Property="BorderBrush" Value="#FFF72B2B" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -31,11 +61,12 @@
                     </Border>
                     <Grid Margin="12 15" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="textUserName" Text="Username" Style="{StaticResource textHint}" IsHitTestVisible="False"/>
-                        <TextBox x:Name="txtUserName" PreviewMouseDown="close_calendar" TextChanged="txtUserName_TextChanged" Style="{StaticResource textBox}" Text="{Binding RegisterModel.UserName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="0" x:Name="textUserName" Text="Username" Style="{StaticResource textHint}" IsHitTestVisible="False"/>
+                        <TextBox Grid.Column="0" x:Name="txtUserName" PreviewMouseDown="close_calendar" TextChanged="txtUserName_TextChanged" Style="{StaticResource textBox}" Text="{Binding RegisterModel.UserName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="1" Text="&#xe682;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
                 <Grid Height="52" Width="260">
@@ -47,9 +78,12 @@
                                         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}"/>
                                         <Setter Property="Effect">
                                             <Setter.Value>
-                                                <DropShadowEffect ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
+                                                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
                                             </Setter.Value>
                                         </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBirthdayError}" Value="true">
+                                        <Setter Property="BorderBrush" Value="#FFF72B2B" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -57,10 +91,10 @@
                     </Border>
                     <Grid Margin="12 15">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="textBirthday" MouseDown="textBirthday_MouseDown" Text="{Binding RegisterModel.Birthday,Mode=TwoWay}" Cursor="Hand">
+                        <TextBlock Grid.Column="0" x:Name="textBirthday" MouseDown="textBirthday_MouseDown" Text="{Binding RegisterModel.Birthday,Mode=TwoWay}" Cursor="Hand">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource textHint}" >
                                     <Setter Property="Foreground" Value="Black" />
@@ -79,6 +113,7 @@
                                 </Viewbox>
                             </Border>
                         </Popup>
+                        <TextBlock Grid.Column="1" Text="&#xe63f;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
                 <Grid Height="52" Width="260">
@@ -90,9 +125,12 @@
                                         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}"/>
                                         <Setter Property="Effect">
                                             <Setter.Value>
-                                                <DropShadowEffect ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
+                                                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
                                             </Setter.Value>
                                         </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsPassWordError}" Value="true">
+                                        <Setter Property="BorderBrush" Value="#FFF72B2B" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -100,13 +138,14 @@
                     </Border>
                     <Grid Margin="12 15" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="textPassword" Text="Password"
+                        <TextBlock Grid.Column="0" x:Name="textPassword" Text="Password"
                                    Style="{StaticResource textHint}" IsHitTestVisible="False"/>
-                        <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_TextChanged" PreviewMouseDown="close_calendar"
+                        <PasswordBox Grid.Column="0" x:Name="txtPassword" PasswordChanged="txtPassword_TextChanged" PreviewMouseDown="close_calendar"
                                      Style="{StaticResource textBox}" common:PasswordHelper.Attach="True" common:PasswordHelper.Password="{Binding RegisterModel.PassWord,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Column="1" Text="&#xe66b;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
                 <Grid Height="52" Width="260">
@@ -118,9 +157,12 @@
                                         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}"/>
                                         <Setter Property="Effect">
                                             <Setter.Value>
-                                                <DropShadowEffect ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
+                                                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
                                             </Setter.Value>
                                         </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsPassWord2Error}" Value="true">
+                                        <Setter Property="BorderBrush" Value="#FFF72B2B" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -128,13 +170,14 @@
                     </Border>
                     <Grid Margin="12 15" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="textPassword2" Text="Confirm Password" IsHitTestVisible="False"
+                        <TextBlock Grid.Column="0" x:Name="textPassword2" Text="Confirm Password" IsHitTestVisible="False"
                                        Style="{StaticResource textHint}" />
-                        <PasswordBox x:Name="txtPassword2" PasswordChanged="txtPassword2_TextChanged" PreviewMouseDown="close_calendar"
+                        <PasswordBox Grid.Column="0" x:Name="txtPassword2" PasswordChanged="txtPassword2_TextChanged" PreviewMouseDown="close_calendar"
                                          Style="{StaticResource textBox}" common:PasswordHelper.Attach="True" common:PasswordHelper.Password="{Binding RegisterModel.PassWord2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Column="1" Text="&#xe613;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
                 <Button Content="register" Command="{Binding RegisterCommand}" Style="{StaticResource mainButton}"/>

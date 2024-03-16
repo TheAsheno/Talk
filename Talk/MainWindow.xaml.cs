@@ -1,41 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Talk.View;
 
 namespace Talk
 {
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-            registerbtn.Click += delegate
-            {
-                var w = new register
-                {
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen
-                };
-                w.ShowDialog();
-            };
-        }
+            login_page login_page = new login_page();
+            mainFrame.Content = login_page;
+            login_page.ParentWindow = this;
+        }       
+
         private void close_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Close();
+        }
+
+        public void jump_to_register()
+        {
+            register_page r = new register_page();
+            mainFrame.Content = r;
+            r.ParentWindow = this;
+        }
+        public void jump_to_login()
+        {
+            login_page login_page = new login_page();
+            mainFrame.Content = login_page;
+            login_page.ParentWindow = this;
+            if (mainFrame.BackStack != null)
+            {
+                while (mainFrame.CanGoBack)
+                {
+                    mainFrame.RemoveBackEntry();
+                }
+                GC.Collect();
+            }
+        }
+
+        public void mainFrame_goback()
+        {
+            mainFrame.GoBack();
+            mainFrame.RemoveBackEntry();
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Talk.Model
 {
@@ -27,7 +29,7 @@ namespace Talk.Model
             set
             {
                 _passWord = value;
-                this.DoNotify("Password");
+                DoNotify("Password");
             }
         }
 
@@ -39,7 +41,7 @@ namespace Talk.Model
             set
             {
                 _passWord2 = value;
-                this.DoNotify("Password2");
+                DoNotify("Password2");
             }
         }
 
@@ -51,7 +53,67 @@ namespace Talk.Model
             set
             {
                 _birthday = value;
-                this.DoNotify("Birthday");
+                DoNotify("Birthday");
+            }
+        }
+
+        private ImageSource _imageSource = new BitmapImage(new Uri("pack://application:,,,/Asset/images/default.png"));
+
+        public ImageSource ImageSource
+        {
+            get { return _imageSource; }
+            set
+            {
+                _imageSource = value;
+                DoNotify("ImageSource");
+            }
+        }
+
+        private float _avatarLastScaleX = 1;
+
+        public float AvatarLastScaleX
+        {
+            get { return _avatarLastScaleX; }
+            set
+            {
+                _avatarLastScaleX = value;
+                DoNotify("AvatarLastScaleX");
+            }
+        }
+
+        private float _avatarLastScaleY = 1;
+
+        public float AvatarLastScaleY
+        {
+            get { return _avatarLastScaleY; }
+            set
+            {
+                _avatarLastScaleY = value;
+                DoNotify("AvatarLastScaleY");
+            }
+        }
+
+        private float _lastCenterPointX = 0;
+
+        public float LastCenterPointX
+        {
+            get { return _lastCenterPointX; }
+            set
+            {
+                _lastCenterPointX = value;
+                DoNotify("LastCenterPointX");
+            }
+        }
+
+        private float _lastCenterPointY = 0;
+
+        public float LastCenterPointY
+        {
+            get { return _lastCenterPointY; }
+            set
+            {
+                _lastCenterPointY = value;
+                DoNotify("LastCenterPointY");
             }
         }
     }

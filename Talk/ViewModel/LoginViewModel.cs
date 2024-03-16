@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace Talk
 {
@@ -12,6 +9,8 @@ namespace Talk
         public Model.LoginModel LoginModel { get; set; } = new Model.LoginModel();
         public Common.CommandBase LoginCommand { get; set; }
 
+        MainWindow window;
+
         private string _Message;
         public string Message
         {
@@ -19,15 +18,38 @@ namespace Talk
             set
             {
                 _Message = value;
-                this.DoNotify("Message");
+                DoNotify("Message");
+            }
+        }
+
+        private bool _isUserNameError;
+        public bool IsUserNameError
+        {
+            get { return _isUserNameError; }
+            set
+            {
+                _isUserNameError = value;
+                DoNotify("IsUserNameError");
+            }
+        }
+
+        private bool _isPassWordError;
+        public bool IsPassWordError
+        {
+            get { return _isPassWordError; }
+            set
+            {
+                _isPassWordError = value;
+                DoNotify("IsPassWordError");
             }
         }
 
         public LoginViewModel()
         {
-            this.LoginCommand = new Common.CommandBase();
-            this.LoginCommand.DoExecute = new Action<object>(DoLogin);
-            this.LoginCommand.DoCanExecute = new Func<object, bool>((o) => { return true; });
+            window = (MainWindow)Application.Current.MainWindow;
+            LoginCommand = new Common.CommandBase();
+            LoginCommand.DoExecute = new Action<object>(DoLogin);
+            LoginCommand.DoCanExecute = new Func<object, bool>((o) => { return true; });
         }
 
         private void DoLogin(object o)
@@ -35,13 +57,15 @@ namespace Talk
             this.Message = "";
             if (string.IsNullOrEmpty(LoginModel.UserName))
             {
-                this.Message = "请输入用户名！";
+                Message = "请输入用户名！";
+                IsUserNameError = true;
                 SendNotification("ERROR");
                 return;
             }
             if (string.IsNullOrEmpty(LoginModel.PassWord))
             {
-                this.Message = "请输入密码！";
+                Message = "请输入密码！";
+                IsPassWordError = true;
                 SendNotification("ERROR");
                 return;
             }
@@ -57,19 +81,24 @@ namespace Talk
                     string hashedPasswordFromDB = res.GetString(res.GetOrdinal("password"));
                     if (hashedPasswordFromDB == LoginModel.PassWord)
                     {
-                        this.Message = "登录成功！";
+                        Message = "登录成功！";
                         SendNotification("SUCCESS");
+                        Window home = new View.home_page();
+                        window.Close();
+                        home.Show();
                     }
                     else
                     {
-                        this.Message = "密码错误！";
+                        Message = "密码错误！";
+                        IsPassWordError = true;
                         SendNotification("ERROR");
                     }
                 }
             }
             else
             {
-                this.Message = "该用户不存在！";
+                Message = "该用户不存在！";
+                IsUserNameError = true;
                 SendNotification("ERROR");
             }
             res.Close();

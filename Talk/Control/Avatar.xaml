@@ -19,8 +19,8 @@
                                Height="100" Width="100">
                 <Image.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform x:Name="sfr" />
-                        <TranslateTransform x:Name="tlt" />
+                        <ScaleTransform x:Name="sfr" ScaleX="{Binding RegisterModel.AvatarLastScaleX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" ScaleY="{Binding RegisterModel.AvatarLastScaleY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                        <TranslateTransform x:Name="tlt" X="{Binding RegisterModel.LastCenterPointX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Y="{Binding RegisterModel.LastCenterPointY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Talk.ViewModel;
 
 namespace Talk.Control
 {
@@ -32,6 +34,8 @@ namespace Talk.Control
             if (openFileDialog.ShowDialog() == true)
             {
                 img.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                var viewModel = DataContext as RegisterViewModel;
+                viewModel.filename = openFileDialog.FileName;
             }
         }
 
@@ -69,7 +73,7 @@ namespace Talk.Control
         {
             Point centerPoint = e.GetPosition(img);
 
-            double val = (double)e.Delta / 2000;   //描述鼠标滑轮滚动
+            double val = (double)e.Delta / 2000;
             if (sfr.ScaleX < 0.3 && sfr.ScaleY < 0.3 && e.Delta < 0)
             {
                 return;

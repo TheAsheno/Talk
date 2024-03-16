@@ -4,6 +4,8 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontFamily" Value="Ink Free" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Height" Value="50" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -121,6 +123,34 @@
         <Setter Property="Margin" Value="0 20 0 0" />
         <Setter Property="Background" Value="#3AB19B" />
         <Setter Property="Foreground" Value="#FDFEFE" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1"
+                                BorderBrush="#49B7A3" Padding="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#339685" />
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="#2d7a6c" />
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="mainButton2" TargetType="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Margin" Value="0 20 0 0" />
+        <Setter Property="Background" Value="#FDFEFE" />
+        <Setter Property="Foreground" Value="#3AB19B" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
