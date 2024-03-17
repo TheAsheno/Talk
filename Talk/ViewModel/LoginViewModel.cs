@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Windows;
 
-namespace Talk
+namespace Talk.ViewModel
 {
     class LoginViewModel : Common.NotifyBase
     {
@@ -83,9 +83,11 @@ namespace Talk
                     {
                         Message = "登录成功！";
                         SendNotification("SUCCESS");
+                        res.Close();
                         Window home = new View.home_page();
                         window.Close();
                         home.Show();
+                        return;
                     }
                     else
                     {

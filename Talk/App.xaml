@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/Talk;component/Styles/Button.xaml"/>
                 <ResourceDictionary Source="/Talk;component/Styles/Text.xaml" />
                 <ResourceDictionary Source="/Talk;component/Styles/Border.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

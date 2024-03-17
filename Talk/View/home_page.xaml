@@ -3,11 +3,113 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
         xmlns:local="clr-namespace:Talk.View"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="home_page" Height="450" Width="800">
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Title="Talk" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#ffff"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="asideButton" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"         
+                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <DockPanel >
+            <Grid DockPanel.Dock="Top" Background="Black" Height="55">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="450" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#ffffff" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30 0 0 0" FontSize="35" Text="Talk" Grid.Column="0" />
+                <Menu Foreground="#acb0af" Grid.Column="1" HorizontalAlignment="Right" Background="Transparent" FontSize="20" Margin="0 10 20 0">
+                    <MenuItem Header="签到" Style="{StaticResource MenuItemStyle}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <MenuItem Header="动态" Style="{StaticResource MenuItemStyle}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <MenuItem Header="板块" Style="{StaticResource MenuItemStyle}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <MenuItem Header="个人中心" Style="{StaticResource MenuItemStyle}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <MenuItem Header="离开" Click="exit" Style="{StaticResource MenuItemStyle}"/>
+                </Menu>
+            </Grid>
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Asset/images/Death_Stranding.jpg"/>
+                </Grid.Background>
+                <Viewbox Stretch="Fill">
+                    <DockPanel Width="800" Height="395">
+                        <Grid DockPanel.Dock="Left" Width="150">
+
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="150" >
+
+                        </Grid>
+                        <ScrollViewer Background="#80000000" VerticalScrollBarVisibility="Hidden">
+                            <StackPanel>
+                                <Border ClipToBounds="True" BorderThickness="0 0 0 5" BorderBrush="#ffff" Background="Black" Height="150" Opacity="0.4">
+                                    <Grid>
+                                        <DockPanel>
+                                            <Button DockPanel.Dock="Left" Click="animationLeft" Style="{StaticResource asideButton}">
+                                                <TextBlock Text="&#xe64d;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
+                                            </Button>
+                                            <Button DockPanel.Dock="Right" Click="animationRight" Style="{StaticResource asideButton}">
+                                                <TextBlock Text="&#xe64f;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
+                                            </Button>
+                                            <DockPanel LastChildFill="False" Margin="0 15">
+                                                <DockPanel.RenderTransform>
+                                                    <TranslateTransform x:Name="translateTransformout" X="0"/>
+                                                </DockPanel.RenderTransform>
+                                                <TextBlock DockPanel.Dock="Top" MaxHeight="75" TextAlignment="Center"  x:Name="textBlockout" FontSize="18" Foreground="White" HorizontalAlignment="Center" Width="400" TextWrapping="Wrap" />
+                                                <TextBlock DockPanel.Dock="Top" Width="150" TextAlignment="Left" x:Name="textBlockoutauthor" Margin="220 5 30 0" Foreground="#ffff" />
+                                            </DockPanel>
+                                        </DockPanel>
+                                        <DockPanel LastChildFill="False" Margin="0 15">
+                                            <DockPanel.RenderTransform>
+                                                <TranslateTransform x:Name="translateTransformin" X="500"/>
+                                            </DockPanel.RenderTransform>
+                                            <TextBlock DockPanel.Dock="Top" MaxHeight="75" TextAlignment="Center" x:Name="textBlockin" FontSize="18" Foreground="White" HorizontalAlignment="Center" Width="400" TextWrapping="Wrap" />
+                                            <TextBlock DockPanel.Dock="Top" Width="150" TextAlignment="Left" x:Name="textBlockinauthor" Margin="220 5 30 0" Foreground="#ffff" />
+                                        </DockPanel>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="nihao" FontSize="20" Height="600" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Viewbox>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

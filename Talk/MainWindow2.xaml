@@ -171,7 +171,7 @@
     </Window.Resources>
     <Grid>
         <Line X1="770" Y1="5" X2="800" Y2="30" StrokeThickness="10"></Line>
-        <Image Source="pack://application:,,,/Asset/images/login_background.jpg" Margin="10 10 10 10"/>
+        <Image Source="pack://application:,,,/Asset/images/Death_Stranding.jpg" Margin="10 10 10 10"/>
         <Image x:Name="image" MouseUp="close_MouseUp" Source="pack://application:,,,/Asset/images/u.png" Margin="710,10,-35,354.6" RenderTransformOrigin="0.484,0.766"></Image>
         <Line X1="710" Y1="5" X2="800" Y2="40" StrokeThickness="10"  Panel.ZIndex="1"></Line>
         <Viewbox Stretch="Fill">
