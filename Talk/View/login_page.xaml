@@ -9,12 +9,24 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="400"
       Title="login_page">
-
+    <Page.Resources>
+        <Style x:Key="ellipse" TargetType="Ellipse">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Fill" Value="#41b6e6"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform X="0" Y="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <PowerEase x:Key="powerEase" Power="2" EasingMode="EaseInOut"/>
+    </Page.Resources>
     <Grid>
         <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0" Focusable="True" x:Name="rightborder" MouseDown="Border_MouseDown">
-            <StackPanel Margin="0 50 0 0">
-                <TextBlock Text="Enjoy :)" Style="{StaticResource titleText}" FontFamily="ink free" Foreground="Black" HorizontalAlignment="Left" Padding="70 0 0 0" Margin="0 0 0 15"/>
-                <Grid Height="52" Width="260">
+            <DockPanel Margin="0 50 0 0" LastChildFill="False">
+                <TextBlock DockPanel.Dock="Top" Text="Enjoy :)" Style="{StaticResource titleText}" FontFamily="ink free" Foreground="Black" HorizontalAlignment="Left" Padding="70 0 0 0" Margin="0 0 0 15"/>
+                <Grid DockPanel.Dock="Top" Height="52" Width="260">
                     <Border >
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource TextBoxBorder}">
@@ -44,7 +56,7 @@
                         <TextBlock Grid.Column="1" Text="&#xe682;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
-                <Grid Height="52" Width="260">
+                <Grid DockPanel.Dock="Top" Height="52" Width="260">
                     <Border >
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource TextBoxBorder}">
@@ -76,7 +88,7 @@
                         <TextBlock Grid.Column="1" Text="&#xe66b;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
-                <Grid Width="260">
+                <Grid DockPanel.Dock="Top" Width="260">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="130" />
                         <ColumnDefinition Width="*" />
@@ -84,8 +96,9 @@
                     <Button Grid.Column="0" Content="login" Command="{Binding LoginCommand}" Style="{StaticResource mainButton}" />
                     <Button Grid.Column="1" Content="sign up" Click="register" Style="{StaticResource mainButton2}" />
                 </Grid>
-                <TextBlock Text="This forum must not allowed to directly call the moderator's name." TextWrapping="Wrap"  Style="{StaticResource textHint}" Margin="30 100 30 0"/>
-            </StackPanel>
+                <control:ellipseLoadAnimation DockPanel.Dock="Top" x:Name="ellipseLoadAnimation" Margin="0 15 0 0"/>
+                <TextBlock DockPanel.Dock="Bottom" Text="This forum must not allowed to directly call the moderator's name." TextWrapping="Wrap"  Style="{StaticResource textHint}" Margin="30 0 30 10"/>
+            </DockPanel>
         </Border>
     </Grid>
 </Page>

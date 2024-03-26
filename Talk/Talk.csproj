@@ -213,12 +213,17 @@
     </ApplicationDefinition>
     <Compile Include="Common\CommandBase.cs" />
     <Compile Include="Common\PasswordHelper.cs" />
+    <Compile Include="Common\ProgressBarValueToRectConverter .cs" />
     <Compile Include="Common\TextLengthToFontSizeConverter .cs" />
     <Compile Include="Control\Avatar.xaml.cs">
       <DependentUpon>Avatar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\HomeModel.cs" />
+    <Compile Include="Control\ellipseLoadAnimation.xaml.cs">
+      <DependentUpon>ellipseLoadAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\NotificationModel.cs" />
     <Compile Include="Model\RegisterModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -226,10 +231,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
-    <Compile Include="View\home_page.xaml.cs">
-      <DependentUpon>home_page.xaml</DependentUpon>
+    <Compile Include="View\check_in.xaml.cs">
+      <DependentUpon>check_in.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\home.xaml.cs">
+      <DependentUpon>home.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\login_page.xaml.cs">
       <DependentUpon>login_page.xaml</DependentUpon>
@@ -237,6 +245,7 @@
     <Compile Include="View\main_page.xaml.cs">
       <DependentUpon>main_page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="View\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
@@ -245,10 +254,17 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\post_page.xaml.cs">
+      <DependentUpon>post_page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\register_page.xaml.cs">
       <DependentUpon>register_page.xaml</DependentUpon>
     </Compile>
     <Page Include="Control\Avatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\ellipseLoadAnimation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,7 +276,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\home_page.xaml">
+    <Page Include="View\check_in.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -296,6 +316,10 @@
       <DependentUpon>MainWindow2.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\post_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\register_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

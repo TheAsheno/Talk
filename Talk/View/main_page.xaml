@@ -5,10 +5,201 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Talk.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="418" d:DesignWidth="500"
       Title="main_page">
-
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:.35" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Unloaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:.35" Storyboard.TargetProperty="Opacity" From="1" To="0" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Page.Triggers>
+    <Page.Resources>
+        <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="BorderBrush" Value="#D5DFE5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupBox}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="6" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="6" />
+                            </Grid.RowDefinitions>
+                            <Border CornerRadius="5" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}" />
+                            <Border Name="Header" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                                <ContentPresenter ContentSource="Header" RecognizesAccessKey="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"  BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
+                                <Border.OpacityMask>
+                                    <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
+                                        <Binding ElementName="Header" Path="ActualWidth" />
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+                                    </MultiBinding>
+                                </Border.OpacityMask>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="asideButton" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"         
+                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="contentblock" TargetType="TextBlock">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="TextDecorations" Value="Underline" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
-        
+        <StackPanel>
+            <Border ClipToBounds="True" BorderThickness="0 0 0 5" BorderBrush="#acb0af" Background="Black" Height="150" Opacity="0.7">
+                <Grid>
+                    <DockPanel>
+                        <Button DockPanel.Dock="Left" Click="animationLeft" Style="{StaticResource asideButton}" x:Name="leftButton">
+                            <TextBlock Text="&#xe64d;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
+                        </Button>
+                        <Button DockPanel.Dock="Right" Click="animationRight" Style="{StaticResource asideButton}" x:Name="rightButton">
+                            <TextBlock Text="&#xe64f;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
+                        </Button>
+                        <DockPanel LastChildFill="False" Margin="0 15">
+                            <DockPanel.RenderTransform>
+                                <TranslateTransform x:Name="translateTransformout" X="0"/>
+                            </DockPanel.RenderTransform>
+                            <TextBlock DockPanel.Dock="Top" MaxHeight="75" TextAlignment="Center"  x:Name="textBlockout" FontSize="18" Foreground="#ffff" HorizontalAlignment="Center" Width="400" TextWrapping="Wrap" />
+                            <TextBlock DockPanel.Dock="Top" Width="150" TextAlignment="Left" x:Name="textBlockoutauthor" Margin="220 5 30 0" Foreground="#ffff" />
+                            <Grid DockPanel.Dock="Bottom" Height="20" Width="400">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding AddHead}" Cursor="Hand">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="&#xe645;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="10" />
+                                        <TextBlock Grid.Column="1" FontSize="8" Text="贡献题头" />
+                                    </Grid>
+                                </Button>
+                                <Button Grid.Column="1" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding CollectHead}"  CommandParameter="{Binding ElementName=textBlockout, Path=Tag}" Cursor="Hand">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="0 0 2 0" Text="&#xe600;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="10" />
+                                        <TextBlock Grid.Column="1" FontSize="8" Text="收藏" />
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                        </DockPanel>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Margin="0 15">
+                        <DockPanel.RenderTransform>
+                            <TranslateTransform x:Name="translateTransformin" X="500"/>
+                        </DockPanel.RenderTransform>
+                        <TextBlock DockPanel.Dock="Top" MaxHeight="75" TextAlignment="Center" x:Name="textBlockin" FontSize="18" Foreground="#ffff" HorizontalAlignment="Center" Width="400" TextWrapping="Wrap" />
+                        <TextBlock DockPanel.Dock="Top" Width="150" TextAlignment="Left" x:Name="textBlockinauthor" Margin="220 5 30 0" Foreground="#ffff" />
+                        <Grid DockPanel.Dock="Bottom" Height="20" Width="400">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding AddHead}" Cursor="Hand">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="&#xe645;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="10" />
+                                    <TextBlock Grid.Column="1" FontSize="8" Text="贡献题头" />
+                                </Grid>
+                            </Button>
+                            <Button Grid.Column="1" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding CollectHead}"  CommandParameter="{Binding ElementName=textBlockin, Path=Tag}" Cursor="Hand">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Margin="0 0 2 0" Text="&#xe600;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="10" />
+                                    <TextBlock Grid.Column="1" FontSize="8" Text="收藏" />
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </DockPanel>
+                </Grid>
+            </Border>
+            <StackPanel Background="#f5f5f5" Opacity="0.8" MinHeight="268" >
+                <GroupBox FontSize="10" BorderBrush="#FF6991A0" Foreground="#505050" FontWeight="Bold" BorderThickness="3" Margin="20 5">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Hot" FontSize="15" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Width="30" FontFamily="MV Boli" Background="Transparent"/>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <StackPanel Margin="10 0" x:Name="hotcontent">
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox FontSize="10" BorderBrush="#FF6991A0" Foreground="#505050" FontWeight="Bold" BorderThickness="3" Margin="20 5 20 10">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="New" FontSize="15" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Width="35" FontFamily="MV Boli" Background="Transparent"/>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <StackPanel Margin="10 0" x:Name="newcontent">
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

@@ -53,59 +53,6 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="roundedButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Ellipse Name="roundButtonBackground" StrokeThickness="0">
-                                <Ellipse.Stroke>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="Gray"></GradientStop>
-                                        <GradientStop Offset="1" Color="LightGray"></GradientStop>
-                                    </LinearGradientBrush>
-                                </Ellipse.Stroke>
-                            </Ellipse>
-                            <Ellipse Margin="15,5,15,50">
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="WhiteSmoke"></GradientStop>
-                                        <GradientStop Offset="1" Color="Transparent"></GradientStop>
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <ContentPresenter Name="GelButtonContent" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                          Content="{TemplateBinding Content}"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Ellipse.Fill" TargetName="roundButtonBackground">
-                                    <Setter.Value>
-                                        <RadialGradientBrush>
-                                            <GradientStop Offset="0" Color="Navy"></GradientStop>
-                                            <GradientStop Offset="1" Color="DeepSkyBlue"></GradientStop>
-                                        </RadialGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Ellipse.Fill" TargetName="roundButtonBackground">
-                                    <Setter.Value>
-                                        <RadialGradientBrush>
-                                            <GradientStop Offset="0" Color="#ffcc34"></GradientStop>
-                                            <GradientStop Offset="1" Color="#cc9900"></GradientStop>
-                                        </RadialGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Grid>
         <Path Stroke="Black">

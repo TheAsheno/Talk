@@ -40,7 +40,6 @@ namespace Talk
                 GC.Collect();
             }
         }
-
         public void mainFrame_goback()
         {
             mainFrame.GoBack();

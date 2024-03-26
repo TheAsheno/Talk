@@ -12,6 +12,16 @@
         <Setter Property="Cursor" Value="IBeam" />
         <Setter Property="Padding" Value="0 3 0 0" />
     </Style>
+    <Style x:Key="searchBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#acb0af" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Panel.ZIndex" Value="1" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="Cursor" Value="IBeam" />
+        <Setter Property="Padding" Value="0 1 0 0" />
+    </Style>
     <Style x:Key="titleText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="36" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -33,5 +43,15 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0 3 0 0" />
+    </Style>
+    <Style x:Key="searchBox" TargetType="Control">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="Foreground" Value="#ffff" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0 1 0 0" />
     </Style>
 </ResourceDictionary>

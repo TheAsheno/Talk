@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,6 +25,7 @@ namespace Talk.View
             InitializeComponent();
             loginViewModel = new LoginViewModel();
             DataContext = loginViewModel;
+            loginViewModel.ExecuteAnimationRequested += startLoadAnimation;
         }
 
         private MainWindow _parentWin;
@@ -35,7 +37,8 @@ namespace Talk.View
 
         private void register(object sender, RoutedEventArgs e)
         {
-            ParentWindow.jump_to_register();
+            if (loginViewModel.isButtonCanExecute)
+                ParentWindow.jump_to_register();
         }
         private void txtUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -72,6 +75,19 @@ namespace Talk.View
                     window.DragMove();
                 }
             }
+        }
+        public void startLoadAnimation()
+        {
+            DoubleAnimation fadeInAnimation = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            ellipseLoadAnimation.loadingCanvas.BeginAnimation(Canvas.OpacityProperty, fadeInAnimation);
+            ellipseLoadAnimation.loadingCanvas.Visibility = Visibility.Visible;
+            Storyboard loadingAnimation = (Storyboard)ellipseLoadAnimation.loadingCanvas.Resources["LoadingAnimation"];
+            loadingAnimation.Begin();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Talk
         public static SqlConnection conn;
         public App()
         {
-            string SqlConnectionStatement = "server=localhost;database=Talk;uid=sa;pwd=252011";
+            string SqlConnectionStatement = "server=LAPTOP-Q368PJ0M;database=Talk;uid=sa;pwd=252011";
             conn = new SqlConnection(SqlConnectionStatement);
             try
             {

@@ -143,10 +143,18 @@ namespace Talk.ViewModel
             {
                 res.Close();
                 cmd.Parameters.Clear();
-                cmd.CommandText = "INSERT INTO [user] (username, password, birthday, avatar, avatarLastScaleX, avatarLastScaleY, lastCenterPointX, lastCenterPointY) VALUES (@username, @password, @birthday, @avatar, @avatarLastScaleX, @avatarLastScaleY, @lastCenterPointX, @lastCenterPointY)";
+                cmd.CommandText = "select top 1 uid from [user] order by uid desc";
+                string maxUid = cmd.ExecuteScalar()?.ToString();
+                int maxUidNumber = maxUid == null ? 1 : int.Parse(maxUid.Substring(1));
+                string newUid = "u" + maxUidNumber++.ToString("0000");
+                cmd.Parameters.Clear();
+                cmd.CommandText = "INSERT INTO [user] (uid, username, password, birthday, regdate, checkdays, avatar, avatarLastScaleX, avatarLastScaleY, lastCenterPointX, lastCenterPointY) VALUES (@uid, @username, @password, @birthday, @regdate, @checkdays, @avatar, @avatarLastScaleX, @avatarLastScaleY, @lastCenterPointX, @lastCenterPointY)";
+                cmd.Parameters.AddWithValue("@uid", newUid);
                 cmd.Parameters.AddWithValue("@username", RegisterModel.UserName);
                 cmd.Parameters.AddWithValue("@password", RegisterModel.PassWord);
                 cmd.Parameters.AddWithValue("@birthday", RegisterModel.Birthday);
+                cmd.Parameters.AddWithValue("@regdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@checkdays", 0);
                 byte[] imageBytes = File.ReadAllBytes(filename);
                 cmd.Parameters.AddWithValue("@avatar", imageBytes);
                 cmd.Parameters.AddWithValue("@avatarLastScaleX", RegisterModel.AvatarLastScaleX);

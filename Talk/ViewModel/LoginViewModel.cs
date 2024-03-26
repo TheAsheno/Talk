@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using System.Windows;
+using Talk.Model;
 
 namespace Talk.ViewModel
 {
     class LoginViewModel : Common.NotifyBase
     {
-        public Model.LoginModel LoginModel { get; set; } = new Model.LoginModel();
+        public LoginModel LoginModel { get; set; } = new LoginModel();
         public Common.CommandBase LoginCommand { get; set; }
 
         MainWindow window;
+
+        public bool isButtonCanExecute = true;
 
         private string _Message;
         public string Message
@@ -49,10 +53,10 @@ namespace Talk.ViewModel
             window = (MainWindow)Application.Current.MainWindow;
             LoginCommand = new Common.CommandBase();
             LoginCommand.DoExecute = new Action<object>(DoLogin);
-            LoginCommand.DoCanExecute = new Func<object, bool>((o) => { return true; });
+            LoginCommand.DoCanExecute = new Func<object, bool>((o) => { return isButtonCanExecute; });
         }
 
-        private void DoLogin(object o)
+        private async void DoLogin(object o)
         {
             this.Message = "";
             if (string.IsNullOrEmpty(LoginModel.UserName))
@@ -70,7 +74,7 @@ namespace Talk.ViewModel
                 return;
             }
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT password FROM [user] WHERE username = @username";
+            cmd.CommandText = "SELECT * FROM [user] WHERE username = @username";
             cmd.Parameters.AddWithValue("@username", LoginModel.UserName);
             cmd.Connection = App.conn;
             SqlDataReader res = cmd.ExecuteReader();
@@ -78,13 +82,38 @@ namespace Talk.ViewModel
             {
                 while (res.Read())
                 {
-                    string hashedPasswordFromDB = res.GetString(res.GetOrdinal("password"));
-                    if (hashedPasswordFromDB == LoginModel.PassWord)
+                    if (res["password"].ToString() == LoginModel.PassWord)
                     {
+                        ExecuteAnimationCommand();
+                        isButtonCanExecute = false;
                         Message = "登录成功！";
-                        SendNotification("SUCCESS");
+                        UserData userData = new UserData
+                        {
+                            Uid = res["uid"].ToString(),
+                            Username = res["username"].ToString(),
+                            Password = res["password"].ToString(),
+                            Email = res["email"].ToString(),
+                            Sex = res["sex"].ToString(),
+                            Birthday = (DateTime)res["birthday"],
+                            Regdate = (DateTime)res["regdate"],
+                            Lastcheck = res["lastcheck"] as DateTime?,
+                            Lastlog = DateTime.Now,
+                            Checkdays = Convert.ToInt32(res["checkdays"]),
+                            Avatar = (byte[])res["avatar"],
+                            AvatarLastScaleX = Convert.ToSingle(res["avatarLastScaleX"]),
+                            AvatarLastScaleY = Convert.ToSingle(res["avatarLastScaleY"]),
+                            LastCenterPointX = Convert.ToSingle(res["lastCenterPointX"]),
+                            LastCenterPointY = Convert.ToSingle(res["lastCenterPointY"]),
+                        };
+                        cmd.Parameters.Clear();
+                        cmd.CommandText = "update [user] set lastlog = @lastlog where uid = @uid";
+                        cmd.Parameters.AddWithValue("@lastlog", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@uid", res["uid"].ToString());
                         res.Close();
-                        Window home = new View.home_page();
+                        cmd.ExecuteNonQuery();
+                        Window home = new View.home(userData);
+                        await Task.Delay(2000);
+                        SendNotification("SUCCESS");
                         window.Close();
                         home.Show();
                         return;
@@ -105,9 +134,14 @@ namespace Talk.ViewModel
             }
             res.Close();
         }
+        public event Action ExecuteAnimationRequested;
+        public void ExecuteAnimationCommand()
+        {
+            ExecuteAnimationRequested?.Invoke();
+        }
         private void SendNotification(string title)
         {
-            Model.NotificationModel data = new Model.NotificationModel();
+            NotificationModel data = new NotificationModel();
             data.Title = title;
             data.Message = Message;
             NotificationWindow dialog = new NotificationWindow();
