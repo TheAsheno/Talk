@@ -6,7 +6,7 @@
       xmlns:common="clr-namespace:Talk.Common"
       xmlns:control="clr-namespace:Talk.Control"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="400"
+      d:DesignHeight="500" d:DesignWidth="400"
       Title="register_page">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -21,6 +21,7 @@
         </EventTrigger>
     </Page.Triggers>
     <Grid>
+        <TextBlock x:Name="Sex" Text="{Binding RegisterModel.Sex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="20" Height="20" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="18" HorizontalAlignment="Left" Foreground="#acb0af" Panel.ZIndex="1" Margin="130,115,0,365" MouseDown="Change_Sex" Cursor="Hand"/>
         <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Focusable="True" x:Name="rightborder">
             <StackPanel >
                 <TextBlock Margin="20 10 0 0" MouseDown="frame_goback" Grid.Column="1" Text="&#xe618;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" Foreground="Black" Panel.ZIndex="1" HorizontalAlignment="Left" Width="25" >
@@ -38,7 +39,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <control:Avatar x:Name="Avatar" Margin="0 0 0 10"/>
+                <control:Avatar x:Name="Avatar" Margin="0 0 0 10" />
                 <Grid Height="52" Width="260">
                     <Border >
                         <Border.Style>
@@ -67,6 +68,36 @@
                         <TextBlock Grid.Column="0" x:Name="textUserName" Text="Username" Style="{StaticResource textHint}" IsHitTestVisible="False"/>
                         <TextBox Grid.Column="0" x:Name="txtUserName" PreviewMouseDown="close_calendar" TextChanged="txtUserName_TextChanged" Style="{StaticResource textBox}" Text="{Binding RegisterModel.UserName, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Column="1" Text="&#xe682;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
+                    </Grid>
+                </Grid>
+                <Grid Height="52" Width="260">
+                    <Border >
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource TextBoxBorder}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsFocused, ElementName=txtEmail}" Value="true">
+                                        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}"/>
+                                        <Setter Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF569DE5" Opacity="0.4"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsEmailError}" Value="true">
+                                        <Setter Property="BorderBrush" Value="#FFF72B2B" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Grid Margin="12 15" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="textEmail" Text="Email" Style="{StaticResource textHint}" IsHitTestVisible="False"/>
+                        <TextBox Grid.Column="0" x:Name="txtEmail" PreviewMouseDown="close_calendar" TextChanged="txtEmail_TextChanged" Style="{StaticResource textBox}" Text="{Binding RegisterModel.Email, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="1" Text="&#xe605;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="22" HorizontalAlignment="Right" Foreground="#acb0af"/>
                     </Grid>
                 </Grid>
                 <Grid Height="52" Width="260">

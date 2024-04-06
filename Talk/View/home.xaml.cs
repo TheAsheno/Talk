@@ -27,6 +27,10 @@ namespace Talk.View
             menuViewModel = new MenuViewModel();
             DataContext = menuViewModel;
             menuViewModel.menuModel.UserData = userData;
+            if (userData.Lastcheck == DateTime.Today)
+            {
+                checkItem.IsEnabled = false;
+            }
         }
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
@@ -50,13 +54,9 @@ namespace Talk.View
         private void txtsearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(txtsearch.Text) && txtsearch.Text.Length > 0)
-            {
                 textsearch.Visibility = Visibility.Collapsed;
-            }
             else
-            {
                 textsearch.Visibility = Visibility.Visible;
-            }
         }
 
         private void exit(object sender, RoutedEventArgs e)
@@ -82,12 +82,30 @@ namespace Talk.View
             Console.WriteLine(info);
         }
 
+        public void jump_to_addhead()
+        {
+            loadBar();
+            addhead_page a = new addhead_page(menuViewModel.menuModel.UserData.Uid);
+            mainFrame.Content = a;
+            a.ParentWindow = this;
+            clear();
+        }
+
         private void Talk_MouseDown(object sender, MouseButtonEventArgs e)
         {
             loadBar();
             main_page main_page = new main_page(menuViewModel.menuModel.UserData.Uid);
             mainFrame.Content = main_page;
             main_page.ParentWindow = this;
+            clear();
+        }
+
+        private void jump_to_center(object sender, RoutedEventArgs e)
+        {
+            loadBar();
+            center_page c = new center_page(menuViewModel.menuModel.UserData.Uid, menuViewModel.menuModel.UserData);
+            mainFrame.Content = c;
+            c.ParentWindow = this;
             clear();
         }
         private void clear()
@@ -103,11 +121,8 @@ namespace Talk.View
         }
         private void check_in(object sender, RoutedEventArgs e)
         {
-            if (menuViewModel.menuModel.UserData.Lastcheck == DateTime.Today) 
-            {
-                menuViewModel.SendNotification("ERROR", "当天已签到！");
-                return;
-            }
+            menuViewModel.update_check_in();
+            checkItem.IsEnabled = false;
             check_in check = new check_in();
             check.Show();
             var story = (Storyboard)check.Resources["Hide"];
@@ -120,7 +135,11 @@ namespace Talk.View
                 story.Begin(check); 
             };
             timer.Start();
-            menuViewModel.update_check_in();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -96,7 +96,7 @@
                     <Button Grid.Column="0" Content="login" Command="{Binding LoginCommand}" Style="{StaticResource mainButton}" />
                     <Button Grid.Column="1" Content="sign up" Click="register" Style="{StaticResource mainButton2}" />
                 </Grid>
-                <control:ellipseLoadAnimation DockPanel.Dock="Top" x:Name="ellipseLoadAnimation" Margin="0 15 0 0"/>
+                <control:ellipseLoadAnimation DockPanel.Dock="Top" x:Name="ellipseLoadAnimation" Margin="0 30 0 0"/>
                 <TextBlock DockPanel.Dock="Bottom" Text="This forum must not allowed to directly call the moderator's name." TextWrapping="Wrap"  Style="{StaticResource textHint}" Margin="30 0 30 10"/>
             </DockPanel>
         </Border>

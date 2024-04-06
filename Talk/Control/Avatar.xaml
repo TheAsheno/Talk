@@ -7,26 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Width="120" Height="100">
-        <Canvas Width="100" Height="100" ClipToBounds="False" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Cross">
+        <Canvas Width="100" Height="100" ClipToBounds="False" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Canvas.Clip>
                 <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
             </Canvas.Clip>
-            <Image Name="img" Source="pack://application:,,,/Asset/images/default.png"
-                               MouseDown="img_MouseDown" MouseWheel="img_MouseWheel"
-                               MouseMove="img_MouseMove"
-                               MouseUp="img_MouseUp"
-                               MouseLeave="img_MouseLeave"                
-                               Height="100" Width="100">
+            <Image Name="img" Source="pack://application:,,,/Asset/images/default.png" Height="100" Width="100">
                 <Image.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform x:Name="sfr" ScaleX="{Binding RegisterModel.AvatarLastScaleX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" ScaleY="{Binding RegisterModel.AvatarLastScaleY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
-                        <TranslateTransform x:Name="tlt" X="{Binding RegisterModel.LastCenterPointX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Y="{Binding RegisterModel.LastCenterPointY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                        <ScaleTransform x:Name="sfr" />
+                        <TranslateTransform x:Name="tlt" />
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
         </Canvas>
         <Border Width="100" Height="100" CornerRadius="100" BorderBrush="#3099C5" BorderThickness="2" ></Border>
-        <Button Click="Button_Click"  Background="Transparent" BorderThickness="0" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+        <Button x:Name="change_img" Visibility="Hidden" Click="Button_Click"  Background="Transparent" BorderThickness="0" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand">
             <TextBlock Text="&#xe660;" FontSize="16" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" Height="16" Foreground="#acb0af" />
         </Button>
     </Grid>

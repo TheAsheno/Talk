@@ -13,6 +13,7 @@ namespace Talk.Model
         public string Password { get; set; }
         public string Email { get; set; }
         public string Sex { get; set; }
+        public string Introduce { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime Regdate { get; set; }
         public DateTime? Lastcheck { get; set; }
@@ -23,6 +24,8 @@ namespace Talk.Model
         public float AvatarLastScaleY { get; set; }
         public float LastCenterPointX { get; set; }
         public float LastCenterPointY { get; set; }
+        public float LastX { get; set; }
+        public float LastY { get; set; }
     }
     class MenuModel : Common.NotifyBase
     {

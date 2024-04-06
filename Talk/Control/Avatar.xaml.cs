@@ -27,6 +27,18 @@ namespace Talk.Control
         {
             InitializeComponent();
         }
+
+        public void binding_order()
+        {
+            img.MouseDown += img_MouseDown;
+            img.MouseMove += img_MouseMove;
+            img.MouseLeave += img_MouseLeave;
+            img.MouseUp += img_MouseUp;
+            img.MouseWheel += img_MouseWheel;
+            change_img.Visibility = Visibility;
+            img.Cursor = Cursors.Cross;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

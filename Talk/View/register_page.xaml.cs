@@ -25,6 +25,16 @@ namespace Talk.View
             registerViewModel = new RegisterViewModel();
             DataContext = registerViewModel;
             Avatar.DataContext = registerViewModel;
+            Avatar.binding_order();
+            TransformGroup transformGroup = Avatar.img.RenderTransform as TransformGroup;
+            ScaleTransform sfr = transformGroup.Children[0] as ScaleTransform;
+            TranslateTransform tlt = transformGroup.Children[1] as TranslateTransform;
+            BindingOperations.SetBinding(sfr, ScaleTransform.ScaleXProperty, new Binding("RegisterModel.AvatarLastScaleX") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(sfr, ScaleTransform.ScaleYProperty, new Binding("RegisterModel.AvatarLastScaleY") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(sfr, ScaleTransform.CenterXProperty, new Binding("RegisterModel.LastCenterPointX") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(sfr, ScaleTransform.CenterYProperty, new Binding("RegisterModel.LastCenterPointY") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(tlt, TranslateTransform.XProperty, new Binding("RegisterModel.LastX") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(tlt, TranslateTransform.YProperty, new Binding("RegisterModel.LastY") { UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, Mode = BindingMode.TwoWay });
         }
 
         private MainWindow _parentWin;
@@ -50,6 +60,18 @@ namespace Talk.View
                 textUserName.Visibility = Visibility.Visible;
             }
         }
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            registerViewModel.IsEmailError = false;
+            if (!string.IsNullOrEmpty(txtEmail.Text) && txtEmail.Text.Length > 0)
+            {
+                textEmail.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                textEmail.Visibility = Visibility.Visible;
+            }
+        }
 
         private void textBirthday_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -63,7 +85,7 @@ namespace Talk.View
             if (calDate.SelectedDate.HasValue)
             {
                 if (calDate.SelectedDate > DateTime.Today)
-                    registerViewModel.SendNotification("ERROR", "日期错误！");
+                    App.notification.SendNotification("ERROR", "日期错误！");
                 else
                 {
                     registerViewModel.IsBirthdayError = false;
@@ -116,6 +138,19 @@ namespace Talk.View
         {
             calendar.IsOpen = false;
         }
-
+        string mela = "\ue611", female = "\ue60f";
+        private void Change_Sex(object sender, MouseButtonEventArgs e)
+        {
+            if (Sex.Text == mela)
+            {
+                Sex.Text = female;
+                Sex.FontSize = 20;
+            }
+            else if (Sex.Text == female)
+            {
+                Sex.Text = mela;
+                Sex.FontSize = 18;
+            }
+        }
     }
 }

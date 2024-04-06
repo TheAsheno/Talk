@@ -32,7 +32,7 @@
     </Page.Resources>
     <Grid>
         <StackPanel Background="#f5f5f5" Opacity="0.8">
-
+            <TextBlock Text="震惊！" Style="{StaticResource titleText}" Foreground="Black"/>
         </StackPanel>
     </Grid>
 </Page>

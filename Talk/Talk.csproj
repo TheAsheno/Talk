@@ -212,6 +212,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\CommandBase.cs" />
+    <Compile Include="Common\Notification.cs" />
     <Compile Include="Common\PasswordHelper.cs" />
     <Compile Include="Common\ProgressBarValueToRectConverter .cs" />
     <Compile Include="Common\TextLengthToFontSizeConverter .cs" />
@@ -221,18 +222,33 @@
     <Compile Include="Control\ellipseLoadAnimation.xaml.cs">
       <DependentUpon>ellipseLoadAnimation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AddHeadModel.cs" />
+    <Compile Include="Model\CenterModel.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\NotificationModel.cs" />
     <Compile Include="Model\RegisterModel.cs" />
+    <Compile Include="Model\User1Model.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddHeadViewModel.cs" />
+    <Compile Include="ViewModel\CenterViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\User1ViewModel.cs" />
+    <Compile Include="View\addhead_page.xaml.cs">
+      <DependentUpon>addhead_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\administer.xaml.cs">
+      <DependentUpon>administer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\center_page.xaml.cs">
+      <DependentUpon>center_page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\check_in.xaml.cs">
       <DependentUpon>check_in.xaml</DependentUpon>
     </Compile>
@@ -260,6 +276,9 @@
     <Compile Include="View\register_page.xaml.cs">
       <DependentUpon>register_page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\user1_page.xaml.cs">
+      <DependentUpon>user1_page.xaml</DependentUpon>
+    </Compile>
     <Page Include="Control\Avatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,6 +292,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Text.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\addhead_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\administer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\center_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -324,6 +355,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\user1_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -367,6 +402,7 @@
   <ItemGroup>
     <Resource Include="Asset\images\default.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -24,17 +24,9 @@ namespace Talk.ViewModel
         public MainViewModel(string userid)
         {
             this.userid = userid;
-            AddHead = new Common.CommandBase();
-            AddHead.DoExecute = new Action<object>(DoAddHead);
-            AddHead.DoCanExecute = new Func<object, bool>((o) => { return true; });
             CollectHead = new Common.CommandBase();
             CollectHead.DoExecute = new Action<object>(DoColletHead);
             CollectHead.DoCanExecute = new Func<object, bool>((o) => { return true; });
-        }
-
-        private void DoAddHead(object o)
-        {
-            Console.WriteLine("add");
         }
 
         private void DoColletHead(object o)
@@ -48,12 +40,12 @@ namespace Talk.ViewModel
                     cmd.Parameters.AddWithValue("@headid", o.ToString());
                     cmd.Connection = App.conn;
                     cmd.ExecuteNonQuery();
-                    SendNotification("SUCCESS", "收藏成功！");
+                    App.notification.SendNotification("SUCCESS", "收藏成功！");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                SendNotification("ERROR", "收藏失败：" + ex.Message);
+                App.notification.SendNotification("ERROR", "您已收藏过该题头！");
             }
         }
 
@@ -63,7 +55,7 @@ namespace Talk.ViewModel
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT hid, text, [user].username FROM headinfo, [user] where headinfo.author = [user].uid";
+                    cmd.CommandText = "SELECT hid, text, [user].username, headinfo.anonymous FROM headinfo, [user] where headinfo.author = [user].uid and headinfo.examine = 1";
                     cmd.Connection = App.conn;
 
                     using (SqlDataReader res = cmd.ExecuteReader())
@@ -72,11 +64,16 @@ namespace Talk.ViewModel
                         {
                             while (res.Read())
                             {
+                                string author;
                                 headtextnum++;
+                                if (res["anonymous"] == DBNull.Value)
+                                    author = res["username"].ToString();
+                                else
+                                    author = res["anonymous"].ToString();
                                 HeadInfo info = new HeadInfo
                                 {
                                     Text = res["text"].ToString(),
-                                    Author = res["username"].ToString(),
+                                    Author = author,
                                     Hid = res["hid"].ToString()
                                 };
                                 homeModel.HeadInfo.Add(info);
@@ -87,7 +84,7 @@ namespace Talk.ViewModel
             }
             catch (Exception ex)
             {
-                SendNotification("ERROR", "加载失败：" + ex.Message);
+                App.notification.SendNotification("ERROR", "加载失败：" + ex.Message);
             }
         }
 
@@ -125,25 +122,8 @@ namespace Talk.ViewModel
             }
             catch (Exception ex)
             {
-                SendNotification("ERROR", "加载失败：" + ex.Message);
+                App.notification.SendNotification("ERROR", "加载失败：" + ex.Message);
             }
-        }
-        public void SendNotification(string title, string message)
-        {
-            NotificationModel data = new NotificationModel();
-            data.Title = title;
-            data.Message = message;
-            NotificationWindow dialog = new NotificationWindow();
-            dialog.TopFrom = App.GetTopFrom();
-            dialog.Closed += Dialog_Closed;
-            App._dialogs.Add(dialog);
-            dialog.DataContext = data;
-            dialog.Show();
-        }
-        private void Dialog_Closed(object sender, EventArgs e)
-        {
-            NotificationWindow closedDialog = sender as NotificationWindow;
-            App._dialogs.Remove(closedDialog);
         }
     }
 }

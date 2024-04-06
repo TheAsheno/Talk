@@ -19,7 +19,11 @@ create table [user](
 create table headinfo(
 	hid varchar(20) primary key,
 	text varchar(100) not null,
-	author varchar(20) foreign key references [user](uid)
+	author varchar(20) foreign key references [user](uid),
+	anonymous varchar(20),
+	examine bit,
+	submit_time smalldatetime not null,
+	audit_time smalldatetime
 )
 
 create table section(
@@ -58,6 +62,7 @@ create table content(
 )
 
 create table collect(
-	userid varchar(20) primary key foreign key references [user](uid),
-	headid varchar(20) not null foreign key references headinfo(hid)
+	userid varchar(20) foreign key references [user](uid),
+	headid varchar(20) not null foreign key references headinfo(hid),
+	primary key(userid, headid)
 )

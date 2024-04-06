@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="720"
+        Title="MainWindow" Height="500" Width="720"
         WindowStyle="None" 
         AllowsTransparency="True"
         Background="Transparent">
@@ -36,9 +36,9 @@
                Panel.ZIndex="1" MouseUp="close_MouseUp" Style="{StaticResource imgClose}" RenderTransformOrigin="0.5, 0.5" />
         <Border x:Name="border" CornerRadius="10 0 0 10" ClipToBounds="True">
             <Grid>
-                <Image x:Name="background" Source="pack://application:,,,/Asset/images/fire.png" Margin="-220 0 0 0" Stretch="UniformToFill" >
+                <Image x:Name="background" Source="pack://application:,,,/Asset/images/fire.png" Margin="-250 0 0 0" Stretch="UniformToFill" >
                     <Image.Clip>
-                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="220,0,400,450"/>
+                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="250,0,350,500"/>
                     </Image.Clip>
                 </Image>
                 <StackPanel VerticalAlignment="Center">

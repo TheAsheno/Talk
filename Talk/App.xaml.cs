@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Data.SqlClient;
+using Talk.Common;
+using Talk.View;
 
 namespace Talk
 {
@@ -15,6 +17,7 @@ namespace Talk
     public partial class App : Application
     {
         public static SqlConnection conn;
+        public static Notification notification = new Notification();
         public App()
         {
             string SqlConnectionStatement = "server=LAPTOP-Q368PJ0M;database=Talk;uid=sa;pwd=252011";

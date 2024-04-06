@@ -63,14 +63,14 @@ namespace Talk.ViewModel
             {
                 Message = "请输入用户名！";
                 IsUserNameError = true;
-                SendNotification("ERROR");
+                App.notification.SendNotification("ERROR", Message);
                 return;
             }
             if (string.IsNullOrEmpty(LoginModel.PassWord))
             {
                 Message = "请输入密码！";
                 IsPassWordError = true;
-                SendNotification("ERROR");
+                App.notification.SendNotification("ERROR", Message);
                 return;
             }
             SqlCommand cmd = new SqlCommand();
@@ -94,6 +94,7 @@ namespace Talk.ViewModel
                             Password = res["password"].ToString(),
                             Email = res["email"].ToString(),
                             Sex = res["sex"].ToString(),
+                            Introduce = res["Introduce"].ToString(),
                             Birthday = (DateTime)res["birthday"],
                             Regdate = (DateTime)res["regdate"],
                             Lastcheck = res["lastcheck"] as DateTime?,
@@ -104,6 +105,8 @@ namespace Talk.ViewModel
                             AvatarLastScaleY = Convert.ToSingle(res["avatarLastScaleY"]),
                             LastCenterPointX = Convert.ToSingle(res["lastCenterPointX"]),
                             LastCenterPointY = Convert.ToSingle(res["lastCenterPointY"]),
+                            LastX = Convert.ToSingle(res["lastX"]),
+                            LastY = Convert.ToSingle(res["lastY"]),
                         };
                         cmd.Parameters.Clear();
                         cmd.CommandText = "update [user] set lastlog = @lastlog where uid = @uid";
@@ -113,7 +116,7 @@ namespace Talk.ViewModel
                         cmd.ExecuteNonQuery();
                         Window home = new View.home(userData);
                         await Task.Delay(2000);
-                        SendNotification("SUCCESS");
+                        App.notification.SendNotification("SUCCESS", Message);
                         window.Close();
                         home.Show();
                         return;
@@ -122,7 +125,7 @@ namespace Talk.ViewModel
                     {
                         Message = "密码错误！";
                         IsPassWordError = true;
-                        SendNotification("ERROR");
+                        App.notification.SendNotification("ERROR", Message);
                     }
                 }
             }
@@ -130,7 +133,7 @@ namespace Talk.ViewModel
             {
                 Message = "该用户不存在！";
                 IsUserNameError = true;
-                SendNotification("ERROR");
+                App.notification.SendNotification("ERROR", Message);
             }
             res.Close();
         }
@@ -138,23 +141,6 @@ namespace Talk.ViewModel
         public void ExecuteAnimationCommand()
         {
             ExecuteAnimationRequested?.Invoke();
-        }
-        private void SendNotification(string title)
-        {
-            NotificationModel data = new NotificationModel();
-            data.Title = title;
-            data.Message = Message;
-            NotificationWindow dialog = new NotificationWindow();
-            dialog.TopFrom = App.GetTopFrom();
-            dialog.Closed += Dialog_Closed;
-            App._dialogs.Add(dialog);
-            dialog.DataContext = data;
-            dialog.Show();
-        }
-        private void Dialog_Closed(object sender, EventArgs e)
-        {
-            NotificationWindow closedDialog = sender as NotificationWindow;
-            App._dialogs.Remove(closedDialog);
         }
     }
 }

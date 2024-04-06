@@ -43,6 +43,17 @@ namespace Talk.ViewModel
             }
         }
 
+        private bool _isEmailError;
+        public bool IsEmailError
+        {
+            get { return _isEmailError; }
+            set
+            {
+                _isEmailError = value;
+                DoNotify("IsEmailError");
+            }
+        }
+
         private bool _isBirthdayError;
         public bool IsBirthdayError
         {
@@ -88,44 +99,57 @@ namespace Talk.ViewModel
             if (string.IsNullOrEmpty(RegisterModel.UserName))
             {
                 IsUserNameError = true;
-                SendNotification("ERROR", "请输入用户名！");
+                App.notification.SendNotification("ERROR", "请输入用户名！");
                 return;
             }
             Regex regex = new Regex("^[a-zA-Z0-9]{6,}$");
             if (!regex.IsMatch(RegisterModel.UserName))
             {
                 IsUserNameError = true;
-                SendNotification("ERROR", "用户名只能由数字、小写字母、大写字母组成，不少于六个字符！");
+                App.notification.SendNotification("ERROR", "用户名只能由数字、小写字母、大写字母组成，不少于六个字符！");
+                return;
+            }
+            if (string.IsNullOrEmpty(RegisterModel.Email))
+            {
+                IsEmailError = true;
+                App.notification.SendNotification("ERROR", "请输入邮箱！");
+                return;
+            }
+            Regex regex2 = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if (!regex2.IsMatch(RegisterModel.Email))
+            {
+                IsEmailError = true;
+                App.notification.SendNotification("ERROR", "邮箱地址不合法！");
                 return;
             }
             if (RegisterModel.Birthday == "Birthday")
             {
                 IsBirthdayError = true;
-                SendNotification("ERROR", "请输入生日！");
+                App.notification.SendNotification("ERROR", "请输入生日！");
                 return;
             }
             if (string.IsNullOrEmpty(RegisterModel.PassWord))
             {
                 IsPassWordError = true;
-                SendNotification("ERROR", "请输入密码！");
+                App.notification.SendNotification("ERROR", "请输入密码！");
                 return;
             }
             if (!regex.IsMatch(RegisterModel.PassWord))
             {
                 IsPassWordError = true;
-                SendNotification("ERROR", "密码只能由数字、小写字母、大写字母组成，不少于六个字符！");
+                App.notification.SendNotification("ERROR", "密码只能由数字、小写字母、大写字母组成，不少于六个字符！");
                 return;
             }
             if (string.IsNullOrEmpty(RegisterModel.PassWord2))
             {
                 IsPassWord2Error = true;
-                SendNotification("ERROR", "请确认密码！");
+                App.notification.SendNotification("ERROR", "请确认密码！");
                 return;
             }
             if (RegisterModel.PassWord != RegisterModel.PassWord2)
             {
                 IsPassWordError = true;
-                SendNotification("ERROR", "密码错误！");
+                App.notification.SendNotification("ERROR", "密码错误！");
                 return;
             }
             SqlCommand cmd = new SqlCommand();
@@ -136,7 +160,7 @@ namespace Talk.ViewModel
             if (res.HasRows)
             {
                 IsUserNameError = true;
-                SendNotification("ERROR", "该用户名已存在！");
+                App.notification.SendNotification("ERROR", "该用户名已存在！");
                 res.Close();
             }
             else
@@ -145,14 +169,20 @@ namespace Talk.ViewModel
                 cmd.Parameters.Clear();
                 cmd.CommandText = "select top 1 uid from [user] order by uid desc";
                 string maxUid = cmd.ExecuteScalar()?.ToString();
-                int maxUidNumber = maxUid == null ? 1 : int.Parse(maxUid.Substring(1));
-                string newUid = "u" + maxUidNumber++.ToString("0000");
+                int maxUidNumber = maxUid == null ? 0 : int.Parse(maxUid.Substring(1));
+                string newUid = "u" + (++maxUidNumber).ToString("0000");
                 cmd.Parameters.Clear();
-                cmd.CommandText = "INSERT INTO [user] (uid, username, password, birthday, regdate, checkdays, avatar, avatarLastScaleX, avatarLastScaleY, lastCenterPointX, lastCenterPointY) VALUES (@uid, @username, @password, @birthday, @regdate, @checkdays, @avatar, @avatarLastScaleX, @avatarLastScaleY, @lastCenterPointX, @lastCenterPointY)";
+                cmd.CommandText = "INSERT INTO [user] (uid, username, password, birthday, email, sex, regdate, checkdays, avatar, avatarLastScaleX, avatarLastScaleY, lastCenterPointX, lastCenterPointY, lastX, lastY) VALUES (@uid, @username, @password, @birthday, @email, @sex, @regdate, @checkdays, @avatar, @avatarLastScaleX, @avatarLastScaleY, @lastCenterPointX, @lastCenterPointY, @lastX, @lastY)";
                 cmd.Parameters.AddWithValue("@uid", newUid);
                 cmd.Parameters.AddWithValue("@username", RegisterModel.UserName);
                 cmd.Parameters.AddWithValue("@password", RegisterModel.PassWord);
                 cmd.Parameters.AddWithValue("@birthday", RegisterModel.Birthday);
+                string mela = "\ue611", female = "\ue60f";
+                if (RegisterModel.Sex == mela)
+                    cmd.Parameters.AddWithValue("@sex", "男");
+                else if (RegisterModel.Sex == female)
+                    cmd.Parameters.AddWithValue("@sex", "女");
+                cmd.Parameters.AddWithValue("@email", RegisterModel.Email);
                 cmd.Parameters.AddWithValue("@regdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@checkdays", 0);
                 byte[] imageBytes = File.ReadAllBytes(filename);
@@ -161,34 +191,19 @@ namespace Talk.ViewModel
                 cmd.Parameters.AddWithValue("@avatarLastScaleY", RegisterModel.AvatarLastScaleY);
                 cmd.Parameters.AddWithValue("@lastCenterPointX", RegisterModel.LastCenterPointX);
                 cmd.Parameters.AddWithValue("@lastCenterPointY", RegisterModel.LastCenterPointY);
+                cmd.Parameters.AddWithValue("@lastX", RegisterModel.LastX);
+                cmd.Parameters.AddWithValue("@lastY", RegisterModel.LastY);
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
-                    SendNotification("SUCCESS", "用户注册成功！");
+                    App.notification.SendNotification("SUCCESS", "用户注册成功！");
                     window.jump_to_login();
                 }
                 else
                 {
-                    SendNotification("ERROR", "用户注册失败，请重试！");
+                    App.notification.SendNotification("ERROR", "用户注册失败，请重试！");
                 }
             }
-        }
-        public void SendNotification(string title, string message)
-        {
-            NotificationModel data = new NotificationModel();
-            data.Title = title;
-            data.Message = message;
-            NotificationWindow dialog = new NotificationWindow();
-            dialog.TopFrom = App.GetTopFrom();
-            dialog.Closed += Dialog_Closed;
-            App._dialogs.Add(dialog);
-            dialog.DataContext = data;
-            dialog.Show();
-        }
-        private void Dialog_Closed(object sender, EventArgs e)
-        {
-            NotificationWindow closedDialog = sender as NotificationWindow;
-            App._dialogs.Remove(closedDialog);
         }
     }
 }

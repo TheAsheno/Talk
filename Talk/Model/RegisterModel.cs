@@ -21,6 +21,28 @@ namespace Talk.Model
             }
         }
 
+        private string _email;
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                _email = value;
+                DoNotify("Email");
+            }
+        }
+
+        private string _sex = "\ue611";
+        public string Sex
+        {
+            get { return _sex; }
+            set
+            {
+                _sex = value;
+                DoNotify("Sex");
+            }
+        }
+
         private string _passWord;
 
         public string PassWord
@@ -114,6 +136,30 @@ namespace Talk.Model
             {
                 _lastCenterPointY = value;
                 DoNotify("LastCenterPointY");
+            }
+        }
+
+        private float _lastX = 0;
+
+        public float LastX
+        {
+            get { return _lastX; }
+            set
+            {
+                _lastX = value;
+                DoNotify("LastX");
+            }
+        }
+
+        private float _lastY = 0;
+
+        public float LastY
+        {
+            get { return _lastY; }
+            set
+            {
+                _lastY = value;
+                DoNotify("LastY");
             }
         }
     }

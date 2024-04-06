@@ -31,35 +31,36 @@ namespace Talk.ViewModel
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "update [user] set lastcheck = @lastcheck where uid = @uid";
+                    bool isContinuous = false;
+                    cmd.Connection = App.conn;
+                    cmd.CommandText = "select lastcheck from [user] where uid = @uid";
+                    cmd.Parameters.AddWithValue("@uid", menuModel.UserData.Uid);
+                    SqlDataReader res = cmd.ExecuteReader();
+                    if (res.Read())
+                    {
+                        if (res.IsDBNull(res.GetOrdinal("lastcheck")) || res.GetDateTime(res.GetOrdinal("lastcheck")).Date == DateTime.Today.AddDays(-1))
+                            isContinuous = true;
+                    }
+                    cmd.Parameters.Clear();
+                    res.Close();
+                    if (isContinuous)
+                        cmd.CommandText = "update [user] set lastcheck = @lastcheck, checkdays = checkdays + 1 where uid = @uid";
+                    else
+                        cmd.CommandText = "update [user] set lastcheck = @lastcheck, checkdays = 1 where uid = @uid";
                     cmd.Parameters.AddWithValue("@lastcheck", DateTime.Today);
                     cmd.Parameters.AddWithValue("@uid", menuModel.UserData.Uid);
-                    cmd.Connection = App.conn;
                     cmd.ExecuteNonQuery();
                     menuModel.UserData.Lastcheck = DateTime.Today;
+                    if (isContinuous)
+                        menuModel.UserData.Checkdays += 1;
+                    else
+                        menuModel.UserData.Checkdays = 1;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                SendNotification("ERROR", "签到失败：" + ex.Message);
+                App.notification.SendNotification("ERROR", "签到成功！");
             }
-        }
-        public void SendNotification(string title, string message)
-        {
-            NotificationModel data = new NotificationModel();
-            data.Title = title;
-            data.Message = message;
-            NotificationWindow dialog = new NotificationWindow();
-            dialog.TopFrom = App.GetTopFrom();
-            dialog.Closed += Dialog_Closed;
-            App._dialogs.Add(dialog);
-            dialog.DataContext = data;
-            dialog.Show();
-        }
-        private void Dialog_Closed(object sender, EventArgs e)
-        {
-            NotificationWindow closedDialog = sender as NotificationWindow;
-            App._dialogs.Remove(closedDialog);
         }
     }
 }

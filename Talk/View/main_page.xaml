@@ -122,7 +122,7 @@
                                     <ColumnDefinition Width="200" />
                                     <ColumnDefinition Width="200" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding AddHead}" Cursor="Hand">
+                                <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Click="Add_Head" >
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -156,7 +156,7 @@
                                 <ColumnDefinition Width="200" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Command="{Binding AddHead}" Cursor="Hand">
+                            <Button Grid.Column="0" Width="50" Height="20" Style="{StaticResource login_view}" Click="Add_Head" >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" />

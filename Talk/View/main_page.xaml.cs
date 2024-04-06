@@ -187,5 +187,10 @@ namespace Talk.View
             translateTransformin.BeginAnimation(TranslateTransform.XProperty, animationIn);
             Currentnum = Nextnum;
         }
+
+        private void Add_Head(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.jump_to_addhead();
+        }
     }
 }
