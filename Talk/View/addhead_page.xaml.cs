@@ -16,16 +16,14 @@ using Talk.ViewModel;
 
 namespace Talk.View
 {
-    /// <summary>
-    /// addhead_page.xaml 的交互逻辑
-    /// </summary>
+    //添加题头页面
     public partial class addhead_page : Page
     {
         AddHeadViewModel addHeadViewModel;
-        public addhead_page(string uid)
+        public addhead_page(string uid, string username)
         {
             InitializeComponent();
-            addHeadViewModel = new AddHeadViewModel(uid);
+            addHeadViewModel = new AddHeadViewModel(uid, username);
             DataContext = addHeadViewModel;
         }
         private home _parentWin;

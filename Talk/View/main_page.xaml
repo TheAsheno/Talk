@@ -89,26 +89,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="contentblock" TargetType="TextBlock">
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="TextDecorations" Value="Underline" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Page.Resources>
     <Grid>
         <StackPanel>
             <Border ClipToBounds="True" BorderThickness="0 0 0 5" BorderBrush="#acb0af" Background="Black" Height="150" Opacity="0.7">
                 <Grid>
                     <DockPanel>
-                        <Button DockPanel.Dock="Left" Click="animationLeft" Style="{StaticResource asideButton}" x:Name="leftButton">
+                        <Button DockPanel.Dock="Left" Style="{StaticResource asideButton}" x:Name="leftButton">
                             <TextBlock Text="&#xe64d;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
                         </Button>
-                        <Button DockPanel.Dock="Right" Click="animationRight" Style="{StaticResource asideButton}" x:Name="rightButton">
+                        <Button DockPanel.Dock="Right" Style="{StaticResource asideButton}" x:Name="rightButton">
                             <TextBlock Text="&#xe64f;" Foreground="#ffff" FontWeight="Bold" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" />
                         </Button>
                         <DockPanel LastChildFill="False" Margin="0 15">

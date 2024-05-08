@@ -16,15 +16,19 @@ using System.IO.Packaging;
 
 namespace Talk.ViewModel
 {
+    //注册view模型
     class RegisterViewModel : Common.NotifyBase
     {
         MainWindow window;
+
+        //注册命令
         public RegisterModel RegisterModel { get; set; } = new RegisterModel();
         public Common.CommandBase RegisterCommand { get; set; }
         public Common.CommandBase TextMouseDownCommand { get; set; }
 
         public string filename = Get_default_filename();
 
+        //默认头像数据
         private static string Get_default_filename()
         {
             DirectoryInfo topDir = Directory.GetParent(Environment.CurrentDirectory);
@@ -32,6 +36,7 @@ namespace Talk.ViewModel
             return path + "\\Asset\\images\\default.png";
         }
 
+        //用户名填写是否合法
         private bool _isUserNameError;
         public bool IsUserNameError
         {
@@ -43,6 +48,7 @@ namespace Talk.ViewModel
             }
         }
 
+        //邮箱填写是否合法
         private bool _isEmailError;
         public bool IsEmailError
         {
@@ -54,6 +60,7 @@ namespace Talk.ViewModel
             }
         }
 
+        //生日填写是否合法
         private bool _isBirthdayError;
         public bool IsBirthdayError
         {
@@ -65,6 +72,7 @@ namespace Talk.ViewModel
             }
         }
 
+        //密码填写是否合法
         private bool _isPassWordError;
         public bool IsPassWordError
         {
@@ -76,6 +84,7 @@ namespace Talk.ViewModel
             }
         }
 
+        //确认密码是否和密码一致
         private bool _isPassWord2Error;
         public bool IsPassWord2Error
         {
@@ -94,8 +103,11 @@ namespace Talk.ViewModel
             RegisterCommand.DoExecute = new Action<object>(DoRegister);
             RegisterCommand.DoCanExecute = new Func<object, bool>((o) => { return true; });
         }
+
+        //注册
         private void DoRegister(object o)
         {
+            //检查各信息是否合法
             if (string.IsNullOrEmpty(RegisterModel.UserName))
             {
                 IsUserNameError = true;
@@ -152,6 +164,7 @@ namespace Talk.ViewModel
                 App.notification.SendNotification("ERROR", "密码错误！");
                 return;
             }
+            //查询是否有同名用户
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT password FROM [user] WHERE username = @username";
             cmd.Parameters.AddWithValue("@username", RegisterModel.UserName);
@@ -167,11 +180,13 @@ namespace Talk.ViewModel
             {
                 res.Close();
                 cmd.Parameters.Clear();
+                //取出最后的用户编号
                 cmd.CommandText = "select top 1 uid from [user] order by uid desc";
                 string maxUid = cmd.ExecuteScalar()?.ToString();
                 int maxUidNumber = maxUid == null ? 0 : int.Parse(maxUid.Substring(1));
                 string newUid = "u" + (++maxUidNumber).ToString("0000");
                 cmd.Parameters.Clear();
+                //往数据库插入新用户
                 cmd.CommandText = "INSERT INTO [user] (uid, username, password, birthday, email, sex, regdate, checkdays, avatar, avatarLastScaleX, avatarLastScaleY, lastCenterPointX, lastCenterPointY, lastX, lastY) VALUES (@uid, @username, @password, @birthday, @email, @sex, @regdate, @checkdays, @avatar, @avatarLastScaleX, @avatarLastScaleY, @lastCenterPointX, @lastCenterPointY, @lastX, @lastY)";
                 cmd.Parameters.AddWithValue("@uid", newUid);
                 cmd.Parameters.AddWithValue("@username", RegisterModel.UserName);

@@ -11,16 +11,14 @@ using Talk.View;
 
 namespace Talk
 {
-    /// <summary>
-    /// App.xaml 的交互逻辑
-    /// </summary>
     public partial class App : Application
     {
         public static SqlConnection conn;
         public static Notification notification = new Notification();
         public App()
         {
-            string SqlConnectionStatement = "server=LAPTOP-Q368PJ0M;database=Talk;uid=sa;pwd=252011";
+            //连接数据库
+            string SqlConnectionStatement = "server=10.45.226.151;database=Talk;uid=sa;pwd=252011";
             conn = new SqlConnection(SqlConnectionStatement);
             try
             {
@@ -35,7 +33,11 @@ namespace Talk
                 Console.WriteLine("数据库连接失败: " + ex.Message);
             }
         }
+
+        //存放提示消息记录
         public static List<NotificationWindow> _dialogs = new List<NotificationWindow>();
+
+        //设置提示框高度
         public static double GetTopFrom()
         {
             //屏幕的高度-底部TaskBar的高度。

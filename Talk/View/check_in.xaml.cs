@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Talk.View
 {
-    /// <summary>
-    /// check_in.xaml 的交互逻辑
-    /// </summary>
+    //签到窗口
     public partial class check_in : Window
     {
         public check_in()

@@ -3,12 +3,16 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows;
 using Talk.Model;
+using Talk.View;
 
 namespace Talk.ViewModel
 {
+    //登录view模型
     class LoginViewModel : Common.NotifyBase
     {
         public LoginModel LoginModel { get; set; } = new LoginModel();
+
+        //登录命令
         public Common.CommandBase LoginCommand { get; set; }
 
         MainWindow window;
@@ -56,8 +60,10 @@ namespace Talk.ViewModel
             LoginCommand.DoCanExecute = new Func<object, bool>((o) => { return isButtonCanExecute; });
         }
 
+        //登录
         private async void DoLogin(object o)
         {
+            //检查各值是否合法
             this.Message = "";
             if (string.IsNullOrEmpty(LoginModel.UserName))
             {
@@ -73,6 +79,17 @@ namespace Talk.ViewModel
                 App.notification.SendNotification("ERROR", Message);
                 return;
             }
+            if (LoginModel.UserName == "admin" && LoginModel.PassWord == "123456")
+            {
+                ExecuteAnimationCommand();
+                administer Administer = new administer();
+                await Task.Delay(2000);
+                App.notification.SendNotification("SUCCESS", "管理员登录成功！");
+                window.Close();
+                Administer.Show();
+                return;
+            }
+            //认证用户名和密码
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM [user] WHERE username = @username";
             cmd.Parameters.AddWithValue("@username", LoginModel.UserName);
@@ -87,6 +104,7 @@ namespace Talk.ViewModel
                         ExecuteAnimationCommand();
                         isButtonCanExecute = false;
                         Message = "登录成功！";
+                        //取出用户数据
                         UserData userData = new UserData
                         {
                             Uid = res["uid"].ToString(),
@@ -109,15 +127,17 @@ namespace Talk.ViewModel
                             LastY = Convert.ToSingle(res["lastY"]),
                         };
                         cmd.Parameters.Clear();
+                        //更新用户的上次登录时间
                         cmd.CommandText = "update [user] set lastlog = @lastlog where uid = @uid";
                         cmd.Parameters.AddWithValue("@lastlog", DateTime.Now);
                         cmd.Parameters.AddWithValue("@uid", res["uid"].ToString());
                         res.Close();
                         cmd.ExecuteNonQuery();
-                        Window home = new View.home(userData);
+                        Window home = new home(userData);
                         await Task.Delay(2000);
                         App.notification.SendNotification("SUCCESS", Message);
                         window.Close();
+                        //进入论坛
                         home.Show();
                         return;
                     }

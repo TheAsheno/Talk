@@ -17,6 +17,7 @@ using Talk.ViewModel;
 
 namespace Talk.View
 {
+    //登录也买你
     public partial class login_page : Page
     {
         LoginViewModel loginViewModel;
@@ -35,11 +36,14 @@ namespace Talk.View
             set { _parentWin = value; }
         }
 
+        //跳转到注册页面
         private void register(object sender, RoutedEventArgs e)
         {
             if (loginViewModel.isButtonCanExecute)
                 ParentWindow.jump_to_register();
         }
+
+        //输入时折叠提示文本
         private void txtUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
             loginViewModel.IsUserNameError = false;
@@ -52,6 +56,8 @@ namespace Talk.View
                 textUserName.Visibility = Visibility.Visible;
             }
         }
+
+        //输入时折叠提示文本
         private void txtPassword_TextChanged(object sender, RoutedEventArgs e)
         {
             loginViewModel.IsPassWordError = false;
@@ -64,6 +70,8 @@ namespace Talk.View
                 textPassword.Visibility = Visibility.Visible;
             }
         }
+
+        //在外部按下鼠标后可以拖动窗体
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -76,6 +84,8 @@ namespace Talk.View
                 }
             }
         }
+
+        //登录后播放等待动画
         public void startLoadAnimation()
         {
             DoubleAnimation fadeInAnimation = new DoubleAnimation
@@ -86,6 +96,7 @@ namespace Talk.View
             };
             ellipseLoadAnimation.loadingCanvas.BeginAnimation(Canvas.OpacityProperty, fadeInAnimation);
             ellipseLoadAnimation.loadingCanvas.Visibility = Visibility.Visible;
+            //寻找动画资源样式
             Storyboard loadingAnimation = (Storyboard)ellipseLoadAnimation.loadingCanvas.Resources["LoadingAnimation"];
             loadingAnimation.Begin();
         }

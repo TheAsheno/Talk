@@ -8,6 +8,7 @@ using System.Windows.Data;
 
 namespace Talk.Common
 {
+    //动态调整提示框里文本的字体大小
     class TextLengthToFontSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

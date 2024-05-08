@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //个人中心页面的数据模型
     class CenterModel : Common.NotifyBase
     {
         

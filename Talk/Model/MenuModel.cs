@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //论坛顶部菜单栏的数据模型
+
+    //用户数据类
     public class UserData
     {
         public string Uid { get; set; }
@@ -29,6 +32,7 @@ namespace Talk.Model
     }
     class MenuModel : Common.NotifyBase
     {
+        //存放搜索栏输入文本
         private string _searchText;
         public string SearchText
         {
@@ -40,6 +44,7 @@ namespace Talk.Model
             }
         }
 
+        //存放用户数据
         private UserData _userdata;
         public UserData UserData
         {

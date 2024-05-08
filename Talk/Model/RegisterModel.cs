@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Talk.Model
 {
+    //注册页面的数据模型
     class RegisterModel : Common.NotifyBase
     {
         private string _userName;

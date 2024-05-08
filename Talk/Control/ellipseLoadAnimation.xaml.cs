@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Talk.Control
 {
-    /// <summary>
-    /// ellipseLoadAnimation.xaml 的交互逻辑
-    /// </summary>
+    //登录时等待的动画
     public partial class ellipseLoadAnimation : UserControl
     {
         public ellipseLoadAnimation()

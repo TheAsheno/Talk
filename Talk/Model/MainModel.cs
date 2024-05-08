@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //论坛首页页面的数据模型
+
+    //滚动题头栏的数据类
     public class HeadInfo
     {
         public string Text { get; set; }
@@ -14,13 +17,13 @@ namespace Talk.Model
         public string Hid { get; set; }
     }
 
+    //推荐帖子栏的数据类
     public class Content
     {
         public string Title { get; set; }
-        public string Author { get; set; }
-        public DateTime Time { get; set; }
+        public string AuthorId { get; set; }
+        public string AuthorName { get; set; }
         public string Pid { get; set; }
-        public string Uid { get; set; }
     }
     class MainModel : Common.NotifyBase
     {
@@ -30,6 +33,8 @@ namespace Talk.Model
             HotContent = new ObservableCollection<Content>();
             NewContent = new ObservableCollection<Content>();
         }
+
+        //存放题头信息
         private ObservableCollection<HeadInfo> _headInfo;
         public ObservableCollection<HeadInfo> HeadInfo
         {

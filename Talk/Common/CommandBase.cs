@@ -7,15 +7,18 @@ using System.Windows.Input;
 
 namespace Talk.Common
 {
+    //命令
     class CommandBase : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
+        //判断命令能否执行
         public bool CanExecute(object parameter)
         {
             return DoCanExecute?.Invoke(parameter) == true;
         }
 
+        //命令执行
         public void Execute(object parameter)
         {
             DoExecute?.Invoke(parameter);

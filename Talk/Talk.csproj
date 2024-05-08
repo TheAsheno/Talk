@@ -223,25 +223,53 @@
       <DependentUpon>ellipseLoadAnimation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AddHeadModel.cs" />
+    <Compile Include="Model\AddPostModel.cs" />
     <Compile Include="Model\CenterModel.cs" />
+    <Compile Include="Model\Head2Model.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\NotificationModel.cs" />
+    <Compile Include="Model\Post1Model.cs" />
+    <Compile Include="Model\Post2Model.cs" />
+    <Compile Include="Model\PostlistModel.cs" />
+    <Compile Include="Model\PostModel.cs" />
     <Compile Include="Model\RegisterModel.cs" />
+    <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="Model\Section1Model.cs" />
+    <Compile Include="Model\Section2Model.cs" />
+    <Compile Include="Model\SectionModel.cs" />
     <Compile Include="Model\User1Model.cs" />
+    <Compile Include="Model\UserHeadModel.cs" />
+    <Compile Include="Model\UserPostModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddHeadViewModel.cs" />
+    <Compile Include="ViewModel\AddPostViewModel.cs" />
     <Compile Include="ViewModel\CenterViewModel.cs" />
+    <Compile Include="ViewModel\Head1ViewModel.cs" />
+    <Compile Include="ViewModel\Head2ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Post1ViewModel.cs" />
+    <Compile Include="ViewModel\Post2ViewModel.cs" />
+    <Compile Include="ViewModel\PostlistViewModel.cs" />
+    <Compile Include="ViewModel\PostViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModel\Section1ViewModel.cs" />
+    <Compile Include="ViewModel\Section2ViewModel.cs" />
+    <Compile Include="ViewModel\SectionViewModel.cs" />
     <Compile Include="ViewModel\User1ViewModel.cs" />
+    <Compile Include="ViewModel\UserHeadViewModel.cs" />
+    <Compile Include="ViewModel\UserPostViewModel.cs" />
     <Compile Include="View\addhead_page.xaml.cs">
       <DependentUpon>addhead_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\addpost_page.xaml.cs">
+      <DependentUpon>addpost_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\administer.xaml.cs">
       <DependentUpon>administer.xaml</DependentUpon>
@@ -249,8 +277,17 @@
     <Compile Include="View\center_page.xaml.cs">
       <DependentUpon>center_page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\check_head.xaml.cs">
+      <DependentUpon>check_head.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\check_in.xaml.cs">
       <DependentUpon>check_in.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\head1_page.xaml.cs">
+      <DependentUpon>head1_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\head2_page.xaml.cs">
+      <DependentUpon>head2_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
@@ -262,6 +299,15 @@
       <DependentUpon>main_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="View\modify_post.xaml.cs">
+      <DependentUpon>modify_post.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\modify_section.xaml.cs">
+      <DependentUpon>modify_section.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\modify_user.xaml.cs">
+      <DependentUpon>modify_user.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
@@ -270,14 +316,41 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\post1_page.xaml.cs">
+      <DependentUpon>post1_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\post2_page.xaml.cs">
+      <DependentUpon>post2_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\postlist_page.xaml.cs">
+      <DependentUpon>postlist_page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\post_page.xaml.cs">
       <DependentUpon>post_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\register_page.xaml.cs">
       <DependentUpon>register_page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\search_page.xaml.cs">
+      <DependentUpon>search_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\section1_page.xaml.cs">
+      <DependentUpon>section1_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\section2_page.xaml.cs">
+      <DependentUpon>section2_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\section_page.xaml.cs">
+      <DependentUpon>section_page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\user1_page.xaml.cs">
       <DependentUpon>user1_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\userhead_page.xaml.cs">
+      <DependentUpon>userhead_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\userpost_page.xaml.cs">
+      <DependentUpon>userpost_page.xaml</DependentUpon>
     </Compile>
     <Page Include="Control\Avatar.xaml">
       <SubType>Designer</SubType>
@@ -299,6 +372,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\addpost_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\administer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,7 +384,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\check_head.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\check_in.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\head1_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\head2_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,6 +409,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\main_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\modify_post.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\modify_section.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\modify_user.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -347,6 +448,18 @@
       <DependentUpon>MainWindow2.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\post1_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\post2_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\postlist_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\post_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -355,7 +468,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\search_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\section1_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\section2_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\section_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\user1_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\userhead_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\userpost_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //登录页面的数据模型
     class LoginModel : Common.NotifyBase
     {
         private string _userName;

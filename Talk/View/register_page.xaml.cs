@@ -16,6 +16,7 @@ using Talk.ViewModel;
 
 namespace Talk.View
 {
+    //注册页面
     public partial class register_page : Page
     {
         RegisterViewModel registerViewModel;
@@ -25,7 +26,9 @@ namespace Talk.View
             registerViewModel = new RegisterViewModel();
             DataContext = registerViewModel;
             Avatar.DataContext = registerViewModel;
+            //激活控件功能
             Avatar.binding_order();
+            //绑定数据源
             TransformGroup transformGroup = Avatar.img.RenderTransform as TransformGroup;
             ScaleTransform sfr = transformGroup.Children[0] as ScaleTransform;
             TranslateTransform tlt = transformGroup.Children[1] as TranslateTransform;
@@ -44,10 +47,13 @@ namespace Talk.View
             set { _parentWin = value; }
         }
 
+        //回到登录页面
         private void frame_goback(object sender, MouseButtonEventArgs e)
         {
             ParentWindow.mainFrame_goback();
         }
+
+        //输入时折叠提示文本
         private void txtUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
             registerViewModel.IsUserNameError = false;
@@ -60,6 +66,8 @@ namespace Talk.View
                 textUserName.Visibility = Visibility.Visible;
             }
         }
+
+        //输入时折叠提示文本
         private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
             registerViewModel.IsEmailError = false;
@@ -73,6 +81,7 @@ namespace Talk.View
             }
         }
 
+        //折叠/展开日历
         private void textBirthday_MouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -80,6 +89,7 @@ namespace Talk.View
             calendar.IsOpen = !calendar.IsOpen;
         }
 
+        //检查日期是否合法
         private void calDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (calDate.SelectedDate.HasValue)
@@ -95,6 +105,7 @@ namespace Talk.View
             }
         }
 
+        //输入时折叠提示文本
         private void txtPassword_TextChanged(object sender, RoutedEventArgs e)
         {
             registerViewModel.IsPassWordError = false;
@@ -107,6 +118,8 @@ namespace Talk.View
                 textPassword.Visibility = Visibility.Visible;
             }
         }
+
+        //在外部按住鼠标拖动窗体
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -121,6 +134,7 @@ namespace Talk.View
             }
         }
 
+        //输入时折叠提示文本
         private void txtPassword2_TextChanged(object sender, RoutedEventArgs e)
         {
             registerViewModel.IsPassWord2Error = false;
@@ -138,7 +152,10 @@ namespace Talk.View
         {
             calendar.IsOpen = false;
         }
+
         string mela = "\ue611", female = "\ue60f";
+
+        //切换性别图标
         private void Change_Sex(object sender, MouseButtonEventArgs e)
         {
             if (Sex.Text == mela)

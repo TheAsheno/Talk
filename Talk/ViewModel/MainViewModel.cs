@@ -10,25 +10,28 @@ using Talk.Model;
 
 namespace Talk.ViewModel
 {
+    //论坛首页view模型
     class MainViewModel : Common.NotifyBase
     {
         public MainModel homeModel { get; set; } = new MainModel();
 
-        public Common.CommandBase AddHead { get; set; }
+        //收藏题头命令
         public Common.CommandBase CollectHead { get; set; }
 
         public int headtextnum = 0;
 
-        public string userid;
+        string userid;
+        bool IsheadEmpty = true;
 
         public MainViewModel(string userid)
         {
             this.userid = userid;
             CollectHead = new Common.CommandBase();
             CollectHead.DoExecute = new Action<object>(DoColletHead);
-            CollectHead.DoCanExecute = new Func<object, bool>((o) => { return true; });
+            CollectHead.DoCanExecute = new Func<object, bool>((o) => { return !IsheadEmpty; });
         }
 
+        //往数据库插入新收藏
         private void DoColletHead(object o)
         {
             try
@@ -49,54 +52,59 @@ namespace Talk.ViewModel
             }
         }
 
-        public void loadHeadInfo()
+        //加载题头列表
+        public bool loadHeadInfo()
         {
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT hid, text, [user].username, headinfo.anonymous FROM headinfo, [user] where headinfo.author = [user].uid and headinfo.examine = 1";
+                    cmd.CommandText = "SELECT hid, text, [user].username, headinfo.anonymous FROM headinfo, [user] where headinfo.author = [user].uid and headinfo.examine = '通过'";
                     cmd.Connection = App.conn;
 
                     using (SqlDataReader res = cmd.ExecuteReader())
                     {
                         if (res.HasRows)
                         {
+                            IsheadEmpty = false;
                             while (res.Read())
                             {
-                                string author;
                                 headtextnum++;
-                                if (res["anonymous"] == DBNull.Value)
-                                    author = res["username"].ToString();
-                                else
-                                    author = res["anonymous"].ToString();
                                 HeadInfo info = new HeadInfo
                                 {
                                     Text = res["text"].ToString(),
-                                    Author = author,
+                                    Author = res["anonymous"].ToString(),
                                     Hid = res["hid"].ToString()
                                 };
                                 homeModel.HeadInfo.Add(info);
                             }
                         }
+                        else
+                        {
+                            //若没有题头则置IsheadEmpty为true
+                            IsheadEmpty = true;
+                            return false;
+                        }
                     }
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 App.notification.SendNotification("ERROR", "加载失败：" + ex.Message);
+                return false;
             }
         }
 
+        //加载推荐帖子列表
         public void loadContent()
         {
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT content.pid, content.part, post.title, [user].username, [user].uid, post.time FROM content, post, [user] where content.pid = post.pid and post.author = [user].uid";
                     cmd.Connection = App.conn;
-
+                    cmd.CommandText = "select top 10 pid, title, username, uid from post, [user]  where post.author = [user].uid order by time desc";
                     using (SqlDataReader res = cmd.ExecuteReader())
                     {
                         if (res.HasRows)
@@ -105,16 +113,31 @@ namespace Talk.ViewModel
                             {
                                 Content info = new Content
                                 {
-                                    Title = res["title"].ToString(),
-                                    Author = res["username"].ToString(),
-                                    Time = res.GetDateTime(res.GetOrdinal("time")),
                                     Pid = res["pid"].ToString(),
-                                    Uid = res["uid"].ToString()
+                                    Title = res["title"].ToString(),
+                                    AuthorId = res["uid"].ToString(),
+                                    AuthorName = res["username"].ToString(),
                                 };
-                                if (res["part"].ToString() == "hot")
-                                    homeModel.HotContent.Add(info);
-                                else if (res["part"].ToString() == "new")
-                                    homeModel.NewContent.Add(info);
+                                homeModel.NewContent.Add(info);
+                            }
+                        }
+                    }
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "select top 10 pid, title, username, uid from post, [user]  where post.author = [user].uid order by clickcount desc";
+                    using (SqlDataReader res = cmd.ExecuteReader())
+                    {
+                        if (res.HasRows)
+                        {
+                            while (res.Read())
+                            {
+                                Content info = new Content
+                                {
+                                    Pid = res["pid"].ToString(),
+                                    Title = res["title"].ToString(),
+                                    AuthorId = res["uid"].ToString(),
+                                    AuthorName = res["username"].ToString(),
+                                };
+                                homeModel.HotContent.Add(info);
                             }
                         }
                     }

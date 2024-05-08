@@ -28,6 +28,7 @@ namespace Talk.Control
             InitializeComponent();
         }
 
+        //控件的某些特定功能只在特定场合生效，动态绑定
         public void binding_order()
         {
             img.MouseDown += img_MouseDown;
@@ -39,6 +40,7 @@ namespace Talk.Control
             img.Cursor = Cursors.Cross;
         }
 
+        //打开本地文件夹选择图片
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -54,6 +56,7 @@ namespace Talk.Control
         private bool isMouseLeftButtonDown = false;
         Point previousMousePoint = new Point(0, 0);
 
+        //鼠标按下触发
         private void img_MouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -61,16 +64,19 @@ namespace Talk.Control
             previousMousePoint = e.GetPosition(img);
         }
 
+        //鼠标抬起触发
         private void img_MouseUp(object sender, MouseButtonEventArgs e)
         {
             isMouseLeftButtonDown = false;
         }
 
+        //鼠标从图片上移走触发
         private void img_MouseLeave(object sender, MouseEventArgs e)
         {
             isMouseLeftButtonDown = false;
         }
 
+        //鼠标移动时触发，根据isMouseLeftButtonDown的值使仅当鼠标在按住的状态时拖动图片
         private void img_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMouseLeftButtonDown == true)
@@ -81,6 +87,7 @@ namespace Talk.Control
             }
         }
 
+        //滚动鼠标滚轮时触发，对图片进行缩放
         private void img_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             Point centerPoint = e.GetPosition(img);

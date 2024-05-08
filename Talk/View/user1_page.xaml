@@ -24,7 +24,7 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="1">
+                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="1">
                     <Label Content="用户管理" Foreground="#000" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                 </Border>
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
@@ -47,11 +47,24 @@
                         <ComboBoxItem>男</ComboBoxItem>
                         <ComboBoxItem>女</ComboBoxItem>
                     </ComboBox>
-                    <Border Grid.Column="6" Background="#2862AD" Height="30" Width="65" CornerRadius="2,2,2,2"  HorizontalAlignment="Right">
+                    <Grid Grid.Column="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#2862AD" Height="30" Width="65" CornerRadius="2,2,2,2"  HorizontalAlignment="Right">
                         <Button Content="查询" FontSize="18" Foreground="#fff" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding QueryCommand}" Cursor="Hand"/>
                     </Border>
+                    <Border Grid.Column="1" Background="#2862AD" Height="30" Width="65" CornerRadius="2,2,2,2"  HorizontalAlignment="Right">
+                        <Button Content="修改" FontSize="18" Foreground="#fff" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Modify_User" Cursor="Hand"/>
+                    </Border>
+                    <Border Grid.Column="2" Background="#2862AD" Height="30" Width="65" CornerRadius="2,2,2,2"  HorizontalAlignment="Right">
+                        <Button Content="删除" FontSize="18" Foreground="#fff" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding DeleteCommand}" Cursor="Hand"/>
+                    </Border>
+                    </Grid>
                 </Grid>
-                <DataGrid x:Name="dataGrid1" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" CanUserAddRows="False" AutoGenerateColumns="False" SelectionUnit="FullRow" ColumnHeaderHeight="40" Background="Transparent" SelectionMode="Single" ItemsSource="{Binding Userslist, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <DataGrid x:Name="dataGrid1" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" CanUserAddRows="False" AutoGenerateColumns="False" SelectionUnit="FullRow" ColumnHeaderHeight="40" Background="Transparent" SelectionMode="Single" ItemsSource="{Binding Userslist, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding user1Model.SelectedUser, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <DataGrid.Style>
                         <Style TargetType="DataGrid">
                             <Setter Property="HeadersVisibility" Value="Column"/>
@@ -152,7 +165,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <TextBlock Text="{Binding Birthday, StringFormat='{}{0:d}'}"></TextBlock>
+                                        <TextBlock Text="{Binding Birthday}"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -166,16 +179,11 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="操作" Width="*">
+                        <DataGridTemplateColumn Header="注册时间" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="40">
-                                        <Border x:Name="borderEdit" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="borderEdit_MouseLeftButtonDown">
-                                            <Label Content="编辑" FontSize="14" VerticalAlignment="Center" Cursor="Hand"></Label>
-                                        </Border>
-                                        <Border x:Name="borderDelete" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="borderDelete_MouseLeftButtonDown"  Cursor="Hand">
-                                            <Label Content="删除" FontSize="14" VerticalAlignment="Center"></Label>
-                                        </Border>
+                                        <TextBlock Text="{Binding Regdate, StringFormat='yyyy-MM-dd'}" VerticalAlignment="Center" ></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

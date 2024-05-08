@@ -13,12 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Talk.ViewModel;
+using Talk.Model;
 
 namespace Talk.View
 {
-    /// <summary>
-    /// user1_page.xaml 的交互逻辑
-    /// </summary>
+    //管理端用户管理页面
     public partial class user1_page : Page
     {
         User1ViewModel user1ViewModel;
@@ -35,22 +34,28 @@ namespace Talk.View
             set { _parentWin = value; }
         }
 
-        private void borderEdit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //修改用户数据
+        private void Modify_User(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void borderDelete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-        public class User
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
-
-            public DateTime Birthday { get; set; }
+            //没有选中数据行则返回
+            if (user1ViewModel.user1Model.SelectedUser == null)
+                return;
+            modify_user modify_User = new modify_user();
+            modify_User.DataContext = user1ViewModel;
+            UserData2 userData = user1ViewModel.user1Model.SelectedUser;
+            //存放修改前的数据
+            user1ViewModel.user1Model.ModifyInfo = new UserData2
+            {
+                Uid = userData.Uid,
+                Regdate = userData.Regdate,
+                Username = userData.Username,
+                Password = userData.Password,
+                Sex = userData.Sex,
+                Birthday = userData.Birthday,
+                Email = userData.Email,
+            };
+            modify_User.ShowDialog();
+            
         }
     }
 }

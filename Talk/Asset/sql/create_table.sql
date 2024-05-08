@@ -13,7 +13,10 @@ create table [user](
 	avatarLastScaleX float,
 	avatarLastScaleY float,
 	lastCenterPointX float,
-	lastCenterPointY float
+	lastCenterPointY float,
+	lastX float,
+	lastY float,
+	introduce varchar(50)
 )
 
 create table headinfo(
@@ -21,7 +24,7 @@ create table headinfo(
 	text varchar(100) not null,
 	author varchar(20) foreign key references [user](uid),
 	anonymous varchar(20),
-	examine bit,
+	examine varchar(10),
 	submit_time smalldatetime not null,
 	audit_time smalldatetime
 )
@@ -37,8 +40,8 @@ create table section(
 
 create table post(
 	pid varchar(20) primary key,
-	section varchar(20) not null foreign key references section(sid),
-	author varchar(20) not null foreign key references [user](uid),
+	section varchar(20) not null foreign key references section(sid) on delete cascade,
+	author varchar(20) not null foreign key references [user](uid) on delete cascade,
 	title varchar(50) not null,
 	content text not null,
 	time smalldatetime not null,
@@ -50,7 +53,7 @@ create table post(
 
 create table reply(
 	rid varchar(20) primary key,
-	post varchar(20) not null foreign key references post(pid),
+	post varchar(20) not null foreign key references post(pid) on delete cascade,
 	author varchar(20) not null foreign key references [user](uid),
 	content text not null,
 	time smalldatetime not null
@@ -63,6 +66,6 @@ create table content(
 
 create table collect(
 	userid varchar(20) foreign key references [user](uid),
-	headid varchar(20) not null foreign key references headinfo(hid),
+	headid varchar(20) not null foreign key references headinfo(hid) on delete cascade,
 	primary key(userid, headid)
 )

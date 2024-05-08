@@ -14,7 +14,7 @@
             <DockPanel>
                 <Grid DockPanel.Dock="Top" Background="#3c8dbc" Height="30" Width="800">
                     <TextBlock Foreground="#ffffff" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" FontSize="20" Text="Administrator" Width="auto"/>
-
+                    <TextBlock Text="退出" Foreground="#ffffff" VerticalAlignment="Center" Margin="0 0 20 0" FontSize="20" HorizontalAlignment="Right" Width="auto" Cursor="Hand" MouseDown="Exit_Window" />
                 </Grid>
                 <StackPanel DockPanel.Dock="Left" Height="420" Width="120" Background="#222d32">
                     <TextBlock Text="MENU" FontWeight="Bold" Foreground="White" FontSize="15" Background="Black" Padding="10"/>

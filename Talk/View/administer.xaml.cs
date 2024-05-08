@@ -14,9 +14,7 @@ using System.Windows.Shapes;
 
 namespace Talk.View
 {
-    /// <summary>
-    /// administer.xaml 的交互逻辑
-    /// </summary>
+    //管理端窗口
     public partial class administer : Window
     {
         public administer()
@@ -24,6 +22,7 @@ namespace Talk.View
             InitializeComponent();
         }
 
+        //折叠/展开下拉框
         private void ExpandItem(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem item = sender as TreeViewItem;
@@ -33,6 +32,7 @@ namespace Talk.View
             }
         }
 
+        //跳转到对应页面
         private void TreeViewItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -45,22 +45,34 @@ namespace Talk.View
                     user1.ParentWindow = this;
                     break;
                 case "head1":
-
+                    head1_page head1 = new head1_page();
+                    mainFrame.Content = head1;
+                    head1.ParentWindow = this;
                     break;
                 case "head2":
-
+                    head2_page head2 = new head2_page();
+                    mainFrame.Content = head2;
+                    head2.ParentWindow = this;
                     break;
                 case "section1":
-
+                    section1_page section1 = new section1_page();
+                    mainFrame.Content = section1;
+                    section1.ParentWindow = this;
                     break;
                 case "section2":
-
+                    section2_page section2 = new section2_page();
+                    mainFrame.Content = section2;
+                    section2.ParentWindow = this;
                     break;
                 case "post1":
-
+                    post1_page post1 = new post1_page();
+                    mainFrame.Content = post1;
+                    post1.ParentWindow = this;
                     break;
                 case "post2":
-
+                    post2_page post2 = new post2_page();
+                    mainFrame.Content = post2;
+                    post2.ParentWindow = this;
                     break;
                 default:
                     break;
@@ -68,9 +80,16 @@ namespace Talk.View
 
         }
 
+        //阻止鼠标双击事件路由
         private void CancelDoubleclick(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
+        }
+
+        //退出
+        private void Exit_Window(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
         }
     }
 }

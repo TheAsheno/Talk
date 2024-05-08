@@ -16,9 +16,7 @@ using System.Windows.Media.Animation;
 
 namespace Talk
 {
-    /// <summary>
-    /// NotificationWindow.xaml 的交互逻辑
-    /// </summary>
+    //提示框窗口
     public partial class NotificationWindow : Window
     {
         public NotificationWindow()
@@ -29,12 +27,15 @@ namespace Talk
         public double TopFrom { get; set; }
         private double NotifyTimeSpan = 500;
         
+        //关闭提示框
         private void button_click(object sender, RoutedEventArgs e)
         {
-            Storyboard storyboard = (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard);
+            Storyboard storyboard = FindResource("hideMe") as Storyboard;
             storyboard.Completed += (o, a) => { this.Close(); };
             storyboard.Begin(this);
         }
+
+        //播放动画
         private void NotificationWindow_Loaded(object sender, RoutedEventArgs e)
         {
             NotificationWindow self = sender as NotificationWindow;

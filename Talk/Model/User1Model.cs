@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //管理端用户管理页面的数据模型
     public class UserData2
     {
         public string Uid { get; set; }
@@ -14,10 +15,15 @@ namespace Talk.Model
         public string Password { get; set; }
         public string Email { get; set; }
         public string Sex { get; set; }
-        public DateTime Birthday { get; set; }
+        public string Birthday { get; set; }
+        public DateTime Regdate { get; set; }
     }
     class User1Model : Common.NotifyBase
     {
+        public User1Model()
+        {
+            Users = new List<UserData2>();
+        }
         private string _userName;
         public string UserName
         {
@@ -50,6 +56,8 @@ namespace Talk.Model
                 DoNotify("Sex");
             }
         }
+
+        //存放全部用户记录
         private List<UserData2> _users;
 
         public List<UserData2> Users
@@ -61,6 +69,8 @@ namespace Talk.Model
                 DoNotify("Users");
             }
         }
+
+        //获取当前页面下对应的若干条记录
         public List<UserData2> GetList(int startNum, int count)
         {
             return Users.Skip(startNum).Take(count).Cast<UserData2>().ToList();
@@ -70,6 +80,30 @@ namespace Talk.Model
             get
             {
                 return Users.Count;
+            }
+        }
+
+        //绑定datagrid选中的那行数据
+        private UserData2 _selectedUser;
+        public UserData2 SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                DoNotify("SelectedUser");
+            }
+        }
+
+        //存放修改后的数据
+        private UserData2 _modifyInfo;
+        public UserData2 ModifyInfo
+        {
+            get { return _modifyInfo; }
+            set
+            {
+                _modifyInfo = value;
+                DoNotify("ModifyInfo");
             }
         }
     }

@@ -61,4 +61,14 @@
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Margin" Value="0 5" />
     </Style>
+    <Style x:Key="contentblock" TargetType="TextBlock">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="2" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="TextDecorations" Value="Underline" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

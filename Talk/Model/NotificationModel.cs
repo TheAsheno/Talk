@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //提示框窗口的数据模型
     class NotificationModel : Common.NotifyBase
     {
         private string _title;

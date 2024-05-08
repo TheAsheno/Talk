@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:common="clr-namespace:Talk.Common"
+      xmlns:control="clr-namespace:Talk.Control"
       xmlns:local="clr-namespace:Talk.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="500"
@@ -30,9 +31,86 @@
     </Page.Triggers>
     <Page.Resources>
     </Page.Resources>
-    <Grid>
-        <StackPanel Background="#f5f5f5" Opacity="0.8">
-            <TextBlock Text="震惊！" Style="{StaticResource titleText}" Foreground="Black"/>
+    <Grid Background="#f5f5f5" Opacity="0.8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" x:Name="page"  >
+            <Border x:Name="title" Margin="10" BorderThickness="2" BorderBrush="Black">
+                <Grid Height="100" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Viewbox Width="60" VerticalAlignment="Top" Margin="0 10">
+                            <control:Avatar x:Name="Avatar"/>
+                        </Viewbox>
+                        <TextBlock Text="{Binding postModel.AuthorInfo.Username}" Style="{StaticResource textHint}" HorizontalAlignment="Center" Margin="0" Foreground="Black" Cursor="Hand" MouseDown="ClickAuthor"/>
+                    </StackPanel>
+                    <Grid Grid.Column="1" Margin="15 0 0 0">
+                        <TextBlock Text="{Binding postModel.PostInfo.Section, StringFormat='>>> {0}'}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 10" />
+                        <TextBlock Text="{Binding postModel.PostInfo.Title}" FontSize="18" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center" TextAlignment="Left" MouseDown="Post_Refresh" Cursor="Hand"/>
+                        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding postModel.PostInfo.ClickCount, StringFormat='{}{0} click'}" Style="{StaticResource textHint}" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding TotalCountJustify, StringFormat='{}{0} reply'}" Style="{StaticResource textHint}" FontSize="10" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                    <Line X1="118" Y1="10" X2="118" Y2="90" StrokeThickness="2" Stroke="Black"/>
+                </Grid>
+            </Border>
+            <Border x:Name="content" Margin="10" BorderThickness="2" BorderBrush="Black">
+                <Grid Height="auto" Background="White">
+                    <DockPanel Margin="10" LastChildFill="False">
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding postModel.PostInfo.Content}" FontSize="13" TextWrapping="Wrap" Margin="0 0 0 10"/>
+                        <TextBlock DockPanel.Dock="Bottom" Text="{Binding postModel.PostInfo.Time, StringFormat='yyyy-MM-dd HH:mm'}" HorizontalAlignment="Right" Style="{StaticResource textHint}" FontSize="10"/>
+                        <TextBlock DockPanel.Dock="Bottom" Text="{Binding postModel.AuthorInfo.Username}" HorizontalAlignment="Right" Style="{StaticResource textHint}" FontSize="10"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+            
         </StackPanel>
+        <Grid Grid.Row="1" x:Name="reply">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Path Grid.Row="0" Stroke="Black">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="20,5" IsClosed="True">
+                            <ArcSegment Point="15,10" Size="5,5" SweepDirection="Counterclockwise"/>
+                            <LineSegment Point="15,95"/>
+                            <ArcSegment Point="20,100" Size="5,5"/>
+                            <LineSegment Point="80,100"/>
+                            <LineSegment Point="85,105"/>
+                            <LineSegment Point="90,100"/>
+                            <LineSegment Point="475,100"/>
+                            <ArcSegment Point="480,95" Size="5,5"/>
+                            <LineSegment Point="480,10"/>
+                            <ArcSegment Point="475,5" Size="5,5" SweepDirection="Counterclockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+            <TextBlock Grid.Row="0" x:Name="textReply" Margin="25 12 25 10" Width="450" Text="说点什么~" Style="{StaticResource textHint}" IsHitTestVisible="False" FontSize="12"/>
+            <TextBox Grid.Row="0" x:Name="txtReply" Margin="25 12 25 10" Height="80" BorderThickness="0" Width="450" Text="{Binding postModel.ReplyText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" FontSize="12" Background="Transparent" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="TextBox_TextChanged"/>
+            <DockPanel Grid.Row="1" LastChildFill="False" Margin="15 10">
+                <Button Content="回帖" Width="60" Height="30" DockPanel.Dock="Left" Style="{StaticResource login_view}" Click="Reply"/>
+                <Button Content="下一页" Width="60" Height="30" DockPanel.Dock="Right" Style="{StaticResource login_view}" Click="Next_Page"/>
+                <Button Content="上一页" Width="60" Height="30" DockPanel.Dock="Right" Margin="0 0 10 0" Style="{StaticResource login_view}" Click="Prev_Page"/>
+                <Border DockPanel.Dock="Right" Width="auto" Height="30" Margin="0 0 10 0">
+                    <TextBlock x:Name="totalcount" FontSize="16" Text="{Binding TotalPageJustify, StringFormat='共{0}页'}" Foreground="#acb0af" VerticalAlignment="Center"/>
+                </Border>
+                <Border DockPanel.Dock="Right" Width="auto" Height="30" Margin="10 0 0 0">
+                    <TextBlock x:Name="currentcount" FontSize="16" Text="{Binding CurrentPage, StringFormat='第{0}页 / '}" Foreground="#acb0af" VerticalAlignment="Center"/>
+                </Border>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Page>

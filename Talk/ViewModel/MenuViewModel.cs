@@ -8,23 +8,12 @@ using Talk.Model;
 
 namespace Talk.ViewModel
 {
+    //论坛菜单栏view模型
     class MenuViewModel : Common.NotifyBase
     {
         public MenuModel menuModel { get; set; } = new MenuModel();
-        public Common.CommandBase SearchCommand { get; set; }
 
-        public MenuViewModel()
-        {
-            SearchCommand = new Common.CommandBase();
-            SearchCommand.DoExecute = new Action<object>(DoSearch);
-            SearchCommand.DoCanExecute = new Func<object, bool>((o) => { return true; });
-        }
-
-        private void DoSearch(object o)
-        {
-            Console.WriteLine(menuModel.SearchText);
-        }
-
+        //修改数据库用户签到信息
         public void update_check_in()
         {
             try
@@ -38,11 +27,13 @@ namespace Talk.ViewModel
                     SqlDataReader res = cmd.ExecuteReader();
                     if (res.Read())
                     {
+                        //检查是否连续签到
                         if (res.IsDBNull(res.GetOrdinal("lastcheck")) || res.GetDateTime(res.GetOrdinal("lastcheck")).Date == DateTime.Today.AddDays(-1))
                             isContinuous = true;
                     }
                     cmd.Parameters.Clear();
                     res.Close();
+                    //更新连续签到天数
                     if (isContinuous)
                         cmd.CommandText = "update [user] set lastcheck = @lastcheck, checkdays = checkdays + 1 where uid = @uid";
                     else
@@ -59,7 +50,7 @@ namespace Talk.ViewModel
             }
             catch (Exception)
             {
-                App.notification.SendNotification("ERROR", "签到成功！");
+                App.notification.SendNotification("ERROR", "签到失败！");
             }
         }
     }

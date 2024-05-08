@@ -57,7 +57,7 @@
                     <TextBlock Grid.Column="1" Text="&#xe609;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" FontSize="25" Margin="20 0 0 0" />
                     <TextBlock Grid.Column="1" Text="Introduce" FontFamily="ink free" FontWeight="Bold" Foreground="Black" Margin="50 0 0 0"/>
                     <TextBox x:Name="introduce" Background="Transparent" BorderThickness="0" Margin="25 10 35 0" Grid.Column="1" MaxHeight="60" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
-                    <TextBlock Grid.Column="1" Text="&#xe619;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" Height="20" Width="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="#acb0af" Margin="0 0 20 0" Cursor="Hand" MouseDown="Modify_Introduce"/>
+                    <TextBlock Grid.Column="1" x:Name="modifyButton" Text="&#xe619;" FontFamily="pack://application:,,,/Talk;component/Asset/fonts/#iconfont" Height="20" Width="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="#acb0af" Margin="0 0 20 0" Cursor="Hand" MouseDown="Modify_Introduce"/>
                     <Line Grid.Column="1" X1="220" Y1="0" X2="220" Y2="50" StrokeThickness="2" Stroke="Black"/>
                     <Line Grid.Column="1" X1="190" Y1="5" X2="230" Y2="5" StrokeThickness="2" Stroke="Black"/>
                     <Line Grid.Column="1" X1="170" Y1="10" X2="210" Y2="10" StrokeThickness="2" Stroke="Black"/>
@@ -83,10 +83,10 @@
                         <ColumnDefinition Width="200" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding centerModel.UserData.Sex, StringFormat='性别: {0}'}" Style="{StaticResource infoText}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding centerModel.UserData.Birthday, StringFormat='生日: {0:d}'}" Style="{StaticResource infoText}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding centerModel.UserData.Birthday, StringFormat='生日: {0:yyyy-MM-dd}'}" Style="{StaticResource infoText}" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding centerModel.UserData.Email, StringFormat='邮箱: {0}'}" Style="{StaticResource infoText}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding centerModel.UserData.Regdate, StringFormat='注册日期: {0:d}'}" Style="{StaticResource infoText}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding centerModel.UserData.Lastcheck, StringFormat='上次签到时间: {0:d}'}" Style="{StaticResource infoText}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding centerModel.UserData.Regdate, StringFormat='注册日期: {0:yyyy-MM-dd}'}" Style="{StaticResource infoText}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding centerModel.UserData.Lastcheck, StringFormat='上次签到时间: {0:yyyy-MM-dd}'}" Style="{StaticResource infoText}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding centerModel.UserData.Checkdays, StringFormat='连续签到天数: {0}'}" Style="{StaticResource infoText}" />
                 </Grid>
             </GroupBox>
@@ -95,8 +95,8 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="帖子" Style="{StaticResource login_view}" Height="30" Width="60" HorizontalAlignment="Left" Margin="50 15" Background="#acb0af" />
-                <Button Grid.Column="1" Content="收藏" Style="{StaticResource login_view}" Height="30" Width="60" HorizontalAlignment="Left" Margin="50 15" Background="#acb0af" />
+                <Button Grid.Column="0" Content="帖子" Style="{StaticResource login_view}" Height="30" Width="60" HorizontalAlignment="Left" Margin="50 15" Background="#acb0af" Click="Watch_Post"/>
+                <Button Grid.Column="1" Content="题头" Style="{StaticResource login_view}" Height="30" Width="60" HorizontalAlignment="Left" Margin="50 15" Background="#acb0af" Click="Watch_Head"/>
             </Grid>
         </StackPanel>
     </Grid>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talk.Model
 {
+    //添加题头页面的数据模型
     class AddHeadModel : Common.NotifyBase
     {
         private string _headText;

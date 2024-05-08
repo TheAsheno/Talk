@@ -8,6 +8,7 @@ using System.Windows.Controls;
 
 namespace Talk.Common
 {
+    //密码框辅助，进行密码文本的获取与设置
     class PasswordHelper
     {
         public static readonly DependencyProperty PasswordProperty =
