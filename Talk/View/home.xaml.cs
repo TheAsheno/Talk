@@ -43,7 +43,7 @@ namespace Talk.View
         }
 
         //加载页面时触发顶部滚动条动画效果
-        private void loadBar()
+        public void loadBar()
         {
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = 0;

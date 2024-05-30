@@ -46,7 +46,9 @@ namespace Talk.ViewModel
         //调整回帖数，因为发帖时的内容也算一个回帖
         public void ReplyJustify()
         {
+            CurrentStart = (TotalPage - 1) * PageCount + 1;
             CurrentEnd = CurrentStart + PageCount - 1 > TotalCount ? TotalCount : CurrentStart + PageCount - 1;
+            CurrentPage = TotalPage;
         }
 
         //下一页
@@ -199,6 +201,8 @@ namespace Talk.ViewModel
                     cmd.Parameters.AddWithValue("@pid", pid);
                     cmd.Parameters.AddWithValue("@lastreply", DateTime.Now);
                     cmd.ExecuteNonQuery();
+                    //清空回帖内容
+                    postModel.ReplyText = "";
                     App.notification.SendNotification("SUCCESS", "回帖成功！");
                     return true;
                 }

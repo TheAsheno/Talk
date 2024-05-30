@@ -129,6 +129,7 @@ namespace Talk.View
         //下一页
         private void Next_Page(object sender, RoutedEventArgs e)
         {
+            ParentWindow.loadBar();
             postViewModel.loadReply();
             postViewModel.Refresh();
             if (postViewModel.DoNext())
@@ -147,6 +148,7 @@ namespace Talk.View
         //上一页
         private void Prev_Page(object sender, RoutedEventArgs e)
         {
+            ParentWindow.loadBar();
             postViewModel.loadReply();
             postViewModel.Refresh();
             if (postViewModel.DoPrev())
@@ -168,6 +170,7 @@ namespace Talk.View
             //如果回帖成功
             if (postViewModel.DoReply())
             {
+                ParentWindow.loadBar();
                 postViewModel.loadReply(); //重新加载回帖列表
                 postViewModel.Refresh(); //刷新变量
                 postViewModel.ReplyJustify(); //调整变量

@@ -217,7 +217,7 @@ namespace Talk.ViewModel
                                 Anonymous = res["anonymous"].ToString(),
                                 Examine = res["examine"].ToString(),
                                 Submit_time = (DateTime)res["submit_time"],
-                                Audit_time = (DateTime)res["audit_time"],
+                                Audit_time = res["audit_time"] as DateTime?,
                             };
                             head2Model.Heads.Add(userData2);
                         }

@@ -18,7 +18,7 @@ namespace Talk
         public App()
         {
             //连接数据库
-            string SqlConnectionStatement = "server=10.45.226.151;database=Talk;uid=sa;pwd=252011";
+            string SqlConnectionStatement = "server=localhost;database=Talk;uid=sa;pwd=252011";
             conn = new SqlConnection(SqlConnectionStatement);
             try
             {

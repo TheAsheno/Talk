@@ -99,7 +99,7 @@
                 </Path.Data>
             </Path>
             <TextBlock Grid.Row="0" x:Name="textReply" Margin="25 12 25 10" Width="450" Text="说点什么~" Style="{StaticResource textHint}" IsHitTestVisible="False" FontSize="12"/>
-            <TextBox Grid.Row="0" x:Name="txtReply" Margin="25 12 25 10" Height="80" BorderThickness="0" Width="450" Text="{Binding postModel.ReplyText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBox}" FontSize="12" Background="Transparent" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="TextBox_TextChanged"/>
+            <TextBox Grid.Row="0" x:Name="txtReply" Margin="25 12 25 10" Height="80" BorderThickness="0" Width="450" Text="{Binding postModel.ReplyText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Style="{StaticResource textBox}" FontSize="12" Background="Transparent" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="TextBox_TextChanged"/>
             <DockPanel Grid.Row="1" LastChildFill="False" Margin="15 10">
                 <Button Content="回帖" Width="60" Height="30" DockPanel.Dock="Left" Style="{StaticResource login_view}" Click="Reply"/>
                 <Button Content="下一页" Width="60" Height="30" DockPanel.Dock="Right" Style="{StaticResource login_view}" Click="Next_Page"/>
